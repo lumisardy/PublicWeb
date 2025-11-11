@@ -1,0 +1,176 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "SUSE Mono", sans-serif;
+}
+
+h1{
+    color: white;
+}
+
+h2{
+    color: white;
+}
+li{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+
+
+
+header{
+
+    background-color: #131313;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 30px 25px 30px;
+    
+    
+}
+
+
+header h1{
+
+    
+    color: white;
+    margin: 0;
+    text-align: left;
+}
+
+header ul{
+
+    list-style: none;         /* quita los puntos de la lista */
+    display: flex;            /* coloca los items horizontalmente */
+    margin: 0;
+    padding: 0;
+}
+
+header ul li {
+    font-family: "SUSE Mono", sans-serif;
+    color: #ffffff;
+    margin-left: 20px;       
+    transition: all 0.5s ease;
+}
+header ul li:hover {
+    transform: scale(1.2);
+    color: #bfbfbf;     
+    
+}
+div{
+    position: relative;
+    display: inline-block;
+
+}
+
+
+section{
+    display: flex;
+    width: 1200px;
+    height: 430px;
+    margin-top: 30px;
+}
+
+section img{
+    width: 0px;
+    flex-grow: 1;
+    object-fit: cover;
+    opacity: .8;
+    transition: 0.5s ease;
+}
+
+section img:hover{
+    cursor: crosshair;
+    width: 600px;
+    opacity: 1;
+    filter: contrast(120%);
+
+}
+
+.sectionImg {
+    display: flex;               /* activa flexbox */
+    justify-content: center;     /* centra horizontalmente */
+    margin-top: 30px;            /* opcional: espacio arriba */
+}
+
+.imgLago {
+    width: 100%;   /* se ensancha o estrecha según el contenedor */
+    height: auto;  /* mantiene la proporción */
+    display: block; /* elimina espacios extra */
+}
+
+.lema{
+
+    position: absolute;        
+    top: 20%;                 
+    left: 50%;                
+    transform: translate(-50%, -50%); 
+    color: white;
+    font-size: 35px;
+    font-family: "SUSE Mono", sans-serif;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.separador{
+
+    margin-top: 50px;
+    height: 150px;
+    width: 100%;
+    background-color: #1f1f1f;
+
+}
+
+footer{
+
+
+    height: 250px;
+    padding: 20px;
+    margin-top: 50px;
+    background-color: #131313;
+}
+
+footer div {
+    display: flex;              /* pone los ul en fila */
+    gap: 50px;                  /* espacio horizontal entre los ul */
+    justify-content: center;     /* opcional: centra todo el conjunto */
+    align-items: center;        /* opcional: centra verticalmente si hay altura */
+}
+
+footer ul {
+    
+    margin-right: 500px;
+    padding: 0;
+}
+form{
+
+    margin: 50px;
+    padding: 50px;
+    border-radius: 3px;
+    box-shadow: 2px 1px 15px rgb(163, 163, 163);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+form h1{
+
+    color: #131313;
+    font-size: 30sp;
+
+}
+#Genero {
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#Genero label {
+    color: #131313; 
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
