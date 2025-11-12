@@ -12,6 +12,10 @@ app = Flask(
 
 @app.route("/")
 def index():
+    return render_template("webCV.html")
+
+@app.route("/WebDAM")
+def vacaciones():
     return render_template("MisVacaciones.html")
 
 @app.route("/Formulario")
@@ -21,4 +25,5 @@ def vacaciones():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
     app.run(host="0.0.0.0", port=port)
+
 
