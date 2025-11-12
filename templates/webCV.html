@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portfolio 3D</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(15px);
+            padding: 15px 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            color: #ffd700;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page {
+            display: none;
+            animation: fadeInPage 0.5s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeInPage {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #ffd700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        .project-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 30px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            background: #ffd700;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ffd700;
+        }
+
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #ffd700, 0 0 30px #ffd700; }
+            to { text-shadow: 0 0 30px #ffd700, 0 0 40px #ffd700; }
+        }
+
+        @media (max-width: 768px) {
+            h1, .hero-title { font-size: 2.5em; }
+            .subtitle { font-size: 1.2em; }
+            .section { padding: 25px; }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                gap: 0;
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.3s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+            
+            .nav-links a {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="changePage('inicio')">&lt;/Dev&gt;</div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="changePage('inicio')" class="active">Inicio</a></li>
+                <li><a onclick="changePage('sobre-mi')">Sobre Mí</a></li>
+                <li><a onclick="changePage('objetivos')">Objetivos</a></li>
+                <li><a onclick="changePage('habilidades')">Habilidades</a></li>
+                <li><a onclick="changePage('proyectos')">Proyectos</a></li>
+                <li><a onclick="changePage('contacto')">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="canvas-container"></div>
+    
+    <div class="content">
+
+        <div id="inicio" class="page active">
+            <div class="hero-section">
+                <h1 class="hero-title">Aday</h1>
+                <p class="subtitle">Desarrollador Full Stack | Creativo | Innovador</p>
+                <p style="font-size: 1.2em; margin-top: 20px; max-width: 600px;">
+                    Bienvenido a mi portfolio!!. Lo que trato con esto es enseñar bien los proyectos mas solidos que he realizado, espero que te guste.
+                </p>
+            </div>
+        </div>
+
+       
+        <div id="sobre-mi" class="page">
+            <div class="section">
+                <h2>📋 Sobre Mí</h2>
+                <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
+                    Soy un desarrollador que empece como autodidacta en este mundillo aunque tambien estoy en DAM (Desarrollo de aplicaciones multiplataforma). Me encanta resolver problemas complejos y aprender constantemente nuevas tecnologías .
+                </p>
+                <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
+                    Mi experiencia abarca desde el desarrollo frontend como HTML, CSS, JavaScript, php (se lo basico), Kotlin (Para moviles), hasta backend con Python, Java y bases de datos. Tambien he usado ciertas librerias en cada uno de estos enguajes como YOLO (visión artificial) en python, FastAPI, Docker, PyQt6, Retrofit control de APIS en movil y varias mas que he tocado para hacer ciertas cosas pero no tengo un dominio alto como por ejemplo Flask que lo uso para gestionar esta web por ejemplo, pero falta mucho por aprender de el jaja.    </p>
+                <p style="font-size: 1.2em; line-height: 1.8;">
+                    Me gusta estar informado de nuevas tecnologias y cosas que pasan en el mundillo, esto generalmente lo veo en videos como midudev, mouredev, aristidevs etc. Aunque no da tiempo a aprender de todo pero me gusta estar informado de la ultima, ademas de que es interesante 
+                </p>
+                <p style="font-size: 1.2em; line-height: 1.8;">
+                    A dia de hoy 12/11/2025 en lo que estoy mas enfocado es en el desarrollo movil con Koltlin, tambien hago cosas con python como las APIs, Yolo etc. Ahora estoy aprendiendo JAVA ya que lo tengo que dar en clase pero despues de todo, creo que lo que mas me gusta es el backend, pero no bases de datos y eso si no cosas como IA o APIs etc, aunque tengo que decir que ver los resultados bonitos como con css y three.js la verdad que tambien esta bien, no descarto en un futuro ser tambien frontent developer
+                </p>
+            </div>
+        </div>
+
+        <!-- Página Objetivos -->
+        <div id="objetivos" class="page">
+            <div class="section">
+                <h2>🎯 Objetivos y Visión</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Corto Plazo (2025)</h3>
+                        <p>Dominar tecnologías modernas de desarrollo web y crear proyectos impactantes que mejoren la vida de las personas.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Mediano Plazo (2026-2027)</h3>
+                        <p>Contribuir a proyectos open source significativos y construir una presencia sólida en la comunidad tech.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Largo Plazo (2028+)</h3>
+                        <p>Liderar equipos de desarrollo innovadores y crear productos que transformen industrias.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página Habilidades -->
+        <div id="habilidades" class="page">
+            <div class="section">
+                <h2>💻 Habilidades Técnicas </h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>JavaScript</h3>
+                        <p>⭐⭐</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Kotlin</h3>
+                        <p>⭐⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>JAVA</h3>
+                        <p>⭐⭐⭐</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Python</h3>
+                        <p>⭐⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>CSS/HTML</h3>
+                        <p>⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Git</h3>
+                        <p>⭐⭐⭐⭐</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Docker</h3>
+                        <p>⭐⭐⭐</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📚 Aprendizaje Continuo</h2>
+                <p style="font-size: 1.1em; margin-bottom: 15px;">Actualmente estudiando:</p>
+                <ul style="line-height: 2; font-size: 1.1em;">
+                    <li>🧠 Machine Learning y AI</li>
+                    <li>📱 Desarrollo móvil con Kotlin</li>
+                    <li>🔐 Nuevos lenguajes </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Página Proyectos -->
+        <div id="proyectos" class="page">
+            <div class="section">
+                <h2>🚀 Proyectos Destacados</h2>
+                
+                <div class="project-card">
+                    <div class="project-title">Portfolio 3D Interactivo</div>
+                    <p>Esta web inmersiva con Three.js (Yo no se de Three.js pero queria que quedara bonito y me apoye en la IA jaja, aunque me gustaria aprender ha hacerlo). Incluye animaciones 3D, efectos de partículas y navegación fluida.</p>
+                    <p><strong>Tecnologías:</strong> Three.js, JavaScript, WebGL</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">Dashboard Analytics de RTM( Real Time Management, que es un sistema para controlar y registrar las horas de trabajo de los empleados.)</div>
+                    <p>Plataforma de visualización de datos en tiempo real con gráficos interactivos y reportes personalizables, esto lo hice como proyecto de practicas en una empresa.</p>
+                    <p><strong>Tecnologías:</strong> JavaScript, HTML, CSS, MySQL</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">E-commerce Moderno</div>
+                    <p>Tienda online completa con carrito de compras, pasarela de pago y panel de administración.</p>
+                    <p><strong>Tecnologías:</strong> Next.js, Stripe, PostgreSQL</p>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-title">App de Gestión de Tareas</div>
+                    <p>Aplicación full-stack para gestión de proyectos con colaboración en tiempo real.</p>
+                    <p><strong>Tecnologías:</strong> React, Socket.io, Express, MySQL</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página Contacto -->
+        <div id="contacto" class="page">
+            <div class="section">
+                <h2>📞 Contacto</h2>
+                <p style="text-align: center; font-size: 1.2em; margin-bottom: 30px;">
+                    ¿Tienes un proyecto en mente? ¡Conectemos!
+                </p>
+                <div class="contact-info">
+                    <div class="contact-item">📧 email@ejemplo.com</div>
+                    <div class="contact-item">💼 LinkedIn</div>
+                    <div class="contact-item">🐙 GitHub</div>
+                    <div class="contact-item">🐦 Twitter</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🌍 Ubicación</h2>
+                <p style="text-align: center; font-size: 1.1em;">
+                    Madrid, España 🇪🇸<br>
+                    Disponible para trabajo remoto
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Sistema de navegación entre páginas
+        function changePage(pageId) {
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar la página seleccionada
+            document.getElementById(pageId).classList.add('active');
+            
+            // Actualizar nav activo
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Cerrar menú móvil si está abierto
+            document.querySelector('.nav-links').classList.remove('active');
+            
+            // Scroll al top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle menu móvil
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        // Configuración de Three.js
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // Crear partículas
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 3000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 100;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.05,
+            color: '#ffffff',
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // Crear objetos tech-themed
+        const techObjects = [];
+
+        // Crear un móvil/smartphone
+        function createPhone() {
+            const group = new THREE.Group();
+            
+            const bodyGeometry = new THREE.BoxGeometry(1.5, 3, 0.2);
+            const bodyMaterial = new THREE.MeshPhongMaterial({
+                color: 0x1a1a1a,
+                shininess: 100
+            });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            
+            const screenGeometry = new THREE.PlaneGeometry(1.3, 2.6);
+            const screenMaterial = new THREE.MeshPhongMaterial({
+                color: 0x00ff88,
+                emissive: 0x00ff88,
+                emissiveIntensity: 0.3
+            });
+            const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+            screen.position.z = 0.11;
+            
+            group.add(body);
+            group.add(screen);
+            return group;
+        }
+
+        // Crear un ordenador/laptop
+        function createLaptop() {
+            const group = new THREE.Group();
+            
+            const baseGeometry = new THREE.BoxGeometry(4, 0.2, 3);
+            const baseMaterial = new THREE.MeshPhongMaterial({
+                color: 0x2a2a2a,
+                shininess: 80
+            });
+            const base = new THREE.Mesh(baseGeometry, baseMaterial);
+            
+            const screenGeometry = new THREE.BoxGeometry(4, 2.5, 0.1);
+            const screenMaterial = new THREE.MeshPhongMaterial({
+                color: 0x0066ff,
+                emissive: 0x0066ff,
+                emissiveIntensity: 0.3
+            });
+            const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+            screen.position.y = 1.5;
+            screen.position.z = -1.5;
+            screen.rotation.x = -0.3;
+            
+            group.add(base);
+            group.add(screen);
+            return group;
+        }
+
+        // Crear símbolos de código
+        function createCodeSymbol() {
+            const group = new THREE.Group();
+            
+            const bracketGeometry = new THREE.TorusGeometry(0.8, 0.15, 8, 20, Math.PI);
+            const bracketMaterial = new THREE.MeshPhongMaterial({
+                color: 0xff00ff,
+                wireframe: true
+            });
+            
+            const leftBracket = new THREE.Mesh(bracketGeometry, bracketMaterial);
+            leftBracket.rotation.z = Math.PI / 2;
+            leftBracket.position.x = -0.5;
+            
+            const rightBracket = new THREE.Mesh(bracketGeometry, bracketMaterial);
+            rightBracket.rotation.z = -Math.PI / 2;
+            rightBracket.position.x = 0.5;
+            
+            group.add(leftBracket);
+            group.add(rightBracket);
+            return group;
+        }
+
+        // Crear matriz de texto estilo hacker
+        function createHackerText() {
+            const group = new THREE.Group();
+            
+            for(let i = 0; i < 5; i++) {
+                const lineGeometry = new THREE.PlaneGeometry(0.1, 1.5);
+                const lineMaterial = new THREE.MeshPhongMaterial({
+                    color: 0x00ff00,
+                    emissive: 0x00ff00,
+                    emissiveIntensity: 0.5,
+                    transparent: true,
+                    opacity: 0.7
+                });
+                const line = new THREE.Mesh(lineGeometry, lineMaterial);
+                line.position.x = (i - 2) * 0.3;
+                group.add(line);
+            }
+            
+            return group;
+        }
+
+        // Añadir objetos a la escena
+        const phone = createPhone();
+        phone.position.set(-15, 5, -20);
+        techObjects.push(phone);
+        scene.add(phone);
+
+        const laptop = createLaptop();
+        laptop.position.set(15, -5, -25);
+        techObjects.push(laptop);
+        scene.add(laptop);
+
+        const codeSymbol1 = createCodeSymbol();
+        codeSymbol1.position.set(-10, -8, -15);
+        techObjects.push(codeSymbol1);
+        scene.add(codeSymbol1);
+
+        const codeSymbol2 = createCodeSymbol();
+        codeSymbol2.position.set(12, 8, -18);
+        techObjects.push(codeSymbol2);
+        scene.add(codeSymbol2);
+
+        const hackerText = createHackerText();
+        hackerText.position.set(0, 0, -30);
+        techObjects.push(hackerText);
+        scene.add(hackerText);
+
+        // Iluminación
+        const light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(10, 10, 10);
+        scene.add(light);
+
+        const light2 = new THREE.PointLight(0x00ff88, 0.5, 50);
+        light2.position.set(-10, -10, 10);
+        scene.add(light2);
+
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        camera.position.z = 20;
+
+        // Variables para mouse
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // Animación
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+
+            particlesMesh.rotation.y += 0.001;
+            particlesMesh.rotation.x += 0.0005;
+
+            techObjects.forEach((obj, i) => {
+                obj.rotation.x += 0.005;
+                obj.rotation.y += 0.008;
+                obj.position.y += Math.sin(time + i) * 0.02;
+            });
+
+            camera.position.x += (mouseX * 3 - camera.position.x) * 0.05;
+            camera.position.y += (mouseY * 3 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
