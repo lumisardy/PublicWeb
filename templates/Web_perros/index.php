@@ -58,7 +58,7 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="perros.php">
-                  <span>Perros</span> <img src="images/dog-icon.png" alt="" />
+                  <span>Perros</span> <img src="\static\webPerrosCss\images\dog-icon.png" alt="" />
                 </a>
               </li>
               <li class="nav-item">
@@ -104,7 +104,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="images/slider-img.png" alt="" />
+                      <img src="\static\webPerrosCss\images/slider-img.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="images/slider-img2.png" alt="" />
+                      <img src="\static\webPerrosCss\images/slider-img2.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="images/slider-img3.png" alt="" />
+                      <img src="\static\webPerrosCss\images/slider-img3.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="images/slider-img4.png" alt="" />
+                      <img src="\static\webPerrosCss\images/slider-img4.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -224,7 +224,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="images/slider-img5.png" alt="" />
+                      <img src="\static\webPerrosCss\images/slider-img5.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -247,7 +247,7 @@
     <div class="how_container">
       <div class="box">
         <div class="img-box">
-          <img src="images/cuidado.png" alt="">
+          <img src="\static\webPerrosCss\images/cuidado.png" alt="">
         </div>
         <div class="detail-box">
           <h5>
@@ -261,7 +261,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="images/alimentacion.png" alt="">
+          <img src="\static\webPerrosCss\images/alimentacion.png" alt="">
         </div>
         <div class="detail-box">
           <h5>
@@ -276,7 +276,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="images/duracion.png" alt="">
+          <img src="\static\webPerrosCss\images/duracion.png" alt="">
         </div>
         <div class="detail-box">
           <h5>
@@ -290,7 +290,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="images/Descendencia.png" alt="">
+          <img src="\static\webPerrosCss\images/Descendencia.png" alt="">
         </div>
         <div class="detail-box">
           <h5>
@@ -322,7 +322,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="images/about-img.png" alt="">
+          <img src="\static\webPerrosCss\images/about-img.png" alt="">
         </div>
         <div class="detail-box">
           <br>
@@ -356,7 +356,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="images/auto-img.png" alt="">
+          <img src="\static\webPerrosCss\images/auto-img.png" alt="">
         </div>
         <div class="detail-box">
           <div class="reserva-text">
@@ -391,7 +391,7 @@
         <div class="b-1">
           <div class="client_id">
             <div class="img-box">
-              <img src="images/client-1.jpg" alt="">
+              <img src="\static\webPerrosCss\images/client-1.jpg" alt="">
             </div>
             <div class="name">
               <h5>
@@ -413,7 +413,7 @@
       <div class="box">
         <div class="client_id">
           <div class="img-box">
-            <img src="images/client-2.jpg" alt="">
+            <img src="\static\webPerrosCss\images/client-2.jpg" alt="">
           </div>
           <div class="name">
             <h5>
@@ -460,7 +460,7 @@
             </h5>
             <div>
               <div class="img-box">
-                <img src="images/location.png" width="18px" alt="" />
+                <img src="\static\webPerrosCss\images/location.png" width="18px" alt="" />
               </div>
               <p>
                 Hijas
@@ -468,7 +468,7 @@
             </div>
             <div>
               <div class="img-box">
-                <img src="images/phone.png" width="18px" alt="" />
+                <img src="\static\webPerrosCss\images/phone.png" width="18px" alt="" />
               </div>
               <p>
                 +01 1234567890
@@ -476,7 +476,7 @@
             </div>
             <div>
               <div class="img-box">
-                <img src="images/envelope.png" width="18px" alt="" />
+                <img src="\static\webPerrosCss\images/envelope.png" width="18px" alt="" />
               </div>
               <p>
                 demo@gmail.com
