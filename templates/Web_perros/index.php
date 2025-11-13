@@ -11,7 +11,7 @@
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
-  <link rel="icon" href="images/icon.png" type="images/png">
+  <link rel="icon" href="\static\webPerrosCss\images\icon.png" type="images/png">
 
   <title>Perros Cantabria</title>
 
@@ -21,14 +21,14 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
   <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link rel="stylesheet" type="text/css" href="\static\webPerrosCss\bootstrap.css" />
 
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet" />
   <!-- Custom styles for this template -->
-  <link href="css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="\static\webPerrosCss\style.css">
   <!-- responsive style -->
-  <link href="css/responsive.css" rel="stylesheet" />
+  <link href="\static\webPerrosCss\responsive.css" rel="stylesheet" />
 </head>
 
 <body>
