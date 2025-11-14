@@ -382,7 +382,7 @@
             transform: scale(1.05);
         }
 
-        .gallery-img img {
+        .gallery-img video {
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -415,6 +415,14 @@
         }
 
         .image-viewer-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+        }
+
+        .image-viewer-content video {
             max-width: 100%;
             max-height: 90vh;
             object-fit: contain;
@@ -1126,6 +1134,7 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
                 <h3>🖼️ Ejemplos Visuales</h3>
                 <div class="image-gallery">
                     <div class="gallery-img" onclick="openImageViewer(this)"><video src="\static\images\Autovia2_con_contador.mp4" autoplay muted loop></video></div>
+                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\caballos.png"></div>
                     <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\autovia.png"></div>
                     <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\personas.png"></div>
                 </div>
@@ -1136,27 +1145,54 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
     <!-- Modal para ver imágenes en grande -->
     <div id="image-viewer-modal" class="image-viewer-modal" onclick="closeImageViewer()">
         <div class="image-viewer-close">✕</div>
-        <div class="image-viewer-content">
-            <img id="viewer-image" src="" alt="Imagen ampliada">
+        <div class="image-viewer-content" id="viewer-content">
+            <!-- El contenido se insertará dinámicamente aquí -->
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // Sistema de visor de imágenes
+        // Sistema de visor de imágenes y videos
         function openImageViewer(element) {
             const img = element.querySelector('img');
+            const video = element.querySelector('video');
+            const modal = document.getElementById('image-viewer-modal');
+            const viewerContent = document.getElementById('viewer-content');
+            
+            // Limpiar contenido anterior
+            viewerContent.innerHTML = '';
+            
             if (img) {
-                const modal = document.getElementById('image-viewer-modal');
-                const viewerImg = document.getElementById('viewer-image');
-                viewerImg.src = img.src;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+                // Si es una imagen
+                const newImg = document.createElement('img');
+                newImg.src = img.src;
+                newImg.alt = 'Imagen ampliada';
+                viewerContent.appendChild(newImg);
+            } else if (video) {
+                // Si es un video
+                const newVideo = document.createElement('video');
+                newVideo.src = video.src;
+                newVideo.controls = true;
+                newVideo.autoplay = true;
+                newVideo.muted = true;
+                newVideo.loop = true;
+                viewerContent.appendChild(newVideo);
             }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeImageViewer() {
             const modal = document.getElementById('image-viewer-modal');
+            const viewerContent = document.getElementById('viewer-content');
+            
+            // Pausar videos si hay alguno
+            const video = viewerContent.querySelector('video');
+            if (video) {
+                video.pause();
+            }
+            
             modal.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
