@@ -198,7 +198,6 @@
             border-radius: 15px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            cursor: pointer;
         }
 
         .project-card:hover {
@@ -210,6 +209,170 @@
             font-size: 1.5em;
             margin-bottom: 10px;
             color: #ffd700;
+        }
+
+        .project-expand-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            color: #ffd700;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .project-expand-btn:hover {
+            background: rgba(255, 215, 0, 0.4);
+            transform: scale(1.05);
+        }
+
+        .project-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .project-modal.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid #ff4444;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ff4444;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 0, 0, 0.5);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .modal-title {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .modal-tech {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .tech-tag {
+            padding: 5px 15px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid #ffd700;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #ffd700;
+        }
+
+        .modal-section {
+            margin-bottom: 30px;
+        }
+
+        .modal-section h3 {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .modal-section h4 {
+            color: #ffd700;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+
+        .modal-section p, .modal-section ul {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #e0e0e0;
+        }
+
+        .modal-section ul {
+            list-style-position: inside;
+            padding-left: 20px;
+        }
+
+        .modal-section li {
+            margin-bottom: 10px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .contact-info {
@@ -307,6 +470,15 @@
             .nav-links a {
                 padding: 15px;
             }
+
+            .modal-content {
+                margin: 20px;
+                padding: 25px;
+            }
+
+            .modal-title {
+                font-size: 1.8em;
+            }
         }
     </style>
 </head>
@@ -351,14 +523,14 @@
                 <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
 Soy un desarrollador que empezó como autodidacta en este mundillo, aunque también estoy cursando DAM (Desarrollo de Aplicaciones Multiplataforma). Me encanta resolver problemas complejos y aprender constantemente nuevas tecnologías.                </p>
                 <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
-Mi experiencia abarca desde el desarrollo frontend, con HTML, CSS, JavaScript y PHP (sé lo básico), y Kotlin (para móviles), hasta el backend con Python, Java y bases de datos. También he utilizado varias librerías en cada uno de estos lenguajes, como YOLO (visión artificial) en Python, FastAPI, Docker, PyQt6, Retrofit para el control de APIs en móvil, y muchas más que he probado para distintos proyectos. No tengo un dominio alto de todas, por ejemplo Flask, que lo uso para gestionar esta web, aunque todavía me queda mucho por aprender de él jaja.                <p style="font-size: 1.2em; line-height: 1.8;">
+Mi experiencia abarca desde el desarrollo frontend, con HTML, CSS, JavaScript y PHP (sé lo básico), y Kotlin (para móviles), hasta el backend con Python, Java y bases de datos. También he utilizado varias librerías en cada uno de estos lenguajes, como YOLO (visión artificial) en Python, FastAPI, Docker, PyQt6, Retrofit para el control de APIs en móvil, y muchas más que he probado para distintos proyectos. No tengo un dominio alto de todas, por ejemplo Flask, que lo uso para gestionar esta web, aunque todavía me queda mucho por aprender de él jaja.                </p>
+                <p style="font-size: 1.2em; line-height: 1.8; margin-bottom: 20px;">
 Me gusta estar al tanto de las nuevas tecnologías y de lo que ocurre en el mundillo. Generalmente me informo a través de vídeos de creadores como Midudev, MoureDev o Aristidevs. Aunque no da tiempo a aprender de todo, me gusta mantenerme informado sobre las últimas novedades, además de que me resulta muy interesante.                </p>
                 <p style="font-size: 1.2em; line-height: 1.8;">
 A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotlin. También trabajo con Python, especialmente en temas de APIs y YOLO. Actualmente estoy aprendiendo Java, ya que lo estoy viendo en clase, pero después de todo, creo que lo que más me gusta es el backend —no tanto las bases de datos, sino aspectos como la inteligencia artificial o las APIs. Aun así, tengo que decir que ver resultados visuales bonitos con CSS o Three.js también me encanta, así que no descarto en un futuro dedicarme también al desarrollo frontend.                </p>
             </div>
         </div>
 
-        <!-- Página Objetivos -->
         <div id="objetivos" class="page">
             <div class="section">
                 <h2>🎯 Objetivos y Visión</h2>
@@ -379,7 +551,6 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
             </div>
         </div>
 
-        <!-- Página Habilidades -->
         <div id="habilidades" class="page">
             <div class="section">
                 <h2>💻 Habilidades Técnicas </h2>
@@ -426,21 +597,21 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
             </div>
         </div>
 
-        <!-- Página Proyectos -->
         <div id="proyectos" class="page">
             <div class="section">
-                <h2>🚀 Proyectos Destacados (Incompleto estoy poniendo todo todavia)</h2>
+                <h2>🚀 Proyectos Destacados</h2>
                 
-            <div class="project-card">
-                <div class="project-title">Portfolio 3D Interactivo</div>
+                <div class="project-card">
+                    <div class="project-title">Portfolio 3D Interactivo</div>
                     <p>Esta web inmersiva con Three.js (yo no sé de Three.js, pero quería que quedara bonito y me apoyé en la IA jaja, aunque me gustaría aprender a hacerlo). Incluye animaciones 3D, efectos de partículas y navegación fluida.</p>
                     <p><strong>Tecnologías:</strong> Three.js, JavaScript, WebGL</p>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-title">Dashboard Analytics de RTM (Real Time Management, que es un sistema para controlar y registrar las horas de trabajo de los empleados), tanto web como aplicación móvil</div>
-                    <p>Plataforma de visualización de datos en tiempo real con gráficos interactivos y reportes personalizables. Esto lo hice como proyecto de prácticas en una empresa; tiene muchas funciones. En función de los datos que pongas, la información se guarda de una manera u otra. Lo puedes convertir a Excel o simplemente guardarlo en una base de datos, la cual almacena la información y luego, en un dashboard, te muestra gráficas y estadísticas de los trabajadores, tanto web como para móvil. El apartado de base de datos no está incluido porque es parte de la empresa y yo no lo hice.</p>
+                    <div class="project-title">Dashboard Analytics de RTM</div>
+                    <p>Plataforma de visualización de datos en tiempo real con gráficos interactivos y reportes personalizables. Sistema completo web y móvil para control de horas de trabajo.</p>
                     <p><strong>Tecnologías:</strong> JavaScript, HTML, CSS, MySQL, Kotlin, Jetpack Compose</p>
+                    <div class="project-expand-btn" onclick="openProjectModal('rtm')">Ver Detalles Completos →</div>
                 </div>
 
                 <div class="project-card">
@@ -452,14 +623,16 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
 
                 <div class="project-card">
                     <div class="project-title">Juego desarrollado con Kotlin</div>
-                    <p>Esto fue por experimentar y fue algo en lo que al final le eché muchas horas, por eso lo pongo aquí, ya que usa múltiples librerías como almacenamiento de información en el móvil, navegación entre screens dinámica, sonido, etc.</p>
-                    <p><strong>Tecnologías:</strong> Kotlin, Jetpack Compose, JSON y algunas más que no recuerdo</p>
+                    <p>Proyecto experimental de juego móvil con múltiples funcionalidades avanzadas: almacenamiento local, navegación dinámica, sistema de sonido y más.</p>
+                    <p><strong>Tecnologías:</strong> Kotlin, Jetpack Compose, JSON</p>
+                    <div class="project-expand-btn" onclick="openProjectModal('juego-kotlin')">Ver Detalles Completos →</div>
                 </div>
 
                 <div class="project-card">
-                    <div class="project-title">Detección de objetos con YOLO (Visión artificial)</div>
-                    <p>Bueno, en este campo entré y me llamó la atención, ya que uno de mis mentores se dedica a esto profesionalmente y me enseñó cómo funciona, qué puedes hacer y cómo hacerlo. Gracias a eso, he desarrollado y usado esta tecnología de distintas maneras, como contadores de coches en una autovía, reconocimiento de objetos con alta fiabilidad, usar APIs para que con el móvil puedas hacer fotos y que reconozca lo que hay, etc. Algo que llama mucho la atención y que tiene gran utilidad, no como yo, que lo uso para comprobar quién gana en un piedra, papel o tijera jaja.</p>
-                    <p><strong>Tecnologías:</strong> Python, YOLO</p>
+                    <div class="project-title">Detección de objetos con YOLO</div>
+                    <p>Sistema de visión artificial aplicado a diferentes casos de uso: contador de vehículos, reconocimiento de objetos en tiempo real y juego de piedra-papel-tijera con IA.</p>
+                    <p><strong>Tecnologías:</strong> Python, YOLO, OpenCV, FastAPI</p>
+                    <div class="project-expand-btn" onclick="openProjectModal('yolo')">Ver Detalles Completos →</div>
                 </div>
 
                 <div class="project-card">
@@ -478,17 +651,11 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
                 <div class="project-card">
                     <div class="project-title">Aplicaciones de escritorio con Python (PyQt6)</div>
                     <p>Esto lo aprendí después de aprender la lógica básica, condicionales, clases, herencias, etc. Tampoco quería algo complicado, ya que era mi primera librería un poco en condiciones. Aunque es muy simple, aquí hice cosas básicas como logins, formularios y reproductores de música que tengas en el PC, como un Spotify en local.</p>
-                    <p><strong>Tecnologías:</strong> Python, YOLO, MySQL</p>
+                    <p><strong>Tecnologías:</strong> Python, PyQt6, MySQL</p>
                 </div>
-
-
-
-
-
             </div>
         </div>
 
-        <!-- Página Contacto -->
         <div id="contacto" class="page">
             <div class="section">
                 <h2>📞 Contacto</h2>
@@ -497,8 +664,8 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
                 </p>
                 <div class="contact-info">
                     <div class="contact-item">📧 adayfernandez6@gmail.com</div>
-                    <div class="contact-item">💼 <a href="https://www.linkedin.com/in/aday-fernandez-velar-85aa1626b/" type="_blank">LinkedIn</a></div>
-                    <div class="contact-item">🐙 <a href="https://github.com/lumisardy" type="_blank">GitHub</a></div>
+                    <div class="contact-item">💼 <a href="https://www.linkedin.com/in/aday-fernandez-velar-85aa1626b/" target="_blank">LinkedIn</a></div>
+                    <div class="contact-item">🐙 <a href="https://github.com/lumisardy" target="_blank">GitHub</a></div>
                     <div class="contact-item">🐦 Telefono: 625500370</div>
                 </div>
             </div>
@@ -513,249 +680,44 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script>
-        // Sistema de navegación entre páginas
-        function changePage(pageId) {
-            // Ocultar todas las páginas
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+    <!-- Modales de Proyectos -->
+    <div id="modal-rtm" class="project-modal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeProjectModal('rtm')">✕</div>
             
-            // Mostrar la página seleccionada
-            document.getElementById(pageId).classList.add('active');
-            
-            // Actualizar nav activo
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Cerrar menú móvil si está abierto
-            document.querySelector('.nav-links').classList.remove('active');
-            
-            // Scroll al top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+            <div class="modal-header">
+                <h2 class="modal-title">Dashboard Analytics de RTM</h2>
+                <p style="font-size: 1.2em; color: #e0e0e0;">Real Time Management - Sistema Completo de Gestión de Tiempo</p>
+                <div class="modal-tech">
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">HTML/CSS</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Kotlin</span>
+                    <span class="tech-tag">Jetpack Compose</span>
+                    <span class="tech-tag">Retrofit</span>
+                </div>
+            </div>
 
-        // Toggle menu móvil
-        function toggleMenu() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        }
+            <div class="modal-section">
+                <h3>📋 Descripción del Proyecto</h3>
+                <p>RTM (Real Time Management) es un sistema integral que desarrollé durante mis prácticas en una empresa para controlar y registrar las horas de trabajo de los empleados. El proyecto abarca tanto una aplicación web como una aplicación móvil nativa, ofreciendo una solución completa para la gestión de tiempo y recursos humanos.</p>
+            </div>
 
-        // Configuración de Three.js
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('canvas-container').appendChild(renderer.domElement);
+            <div class="modal-section">
+                <h3>🎯 Características Principales</h3>
+                <ul>
+                    <li><strong>Dashboard Web Interactivo:</strong> Visualización en tiempo real de estadísticas y métricas de empleados con gráficos dinámicos</li>
+                    <li><strong>Aplicación Móvil:</strong> Versión nativa para Android desarrollada con Kotlin y Jetpack Compose para registro de horas sobre la marcha</li>
+                    <li><strong>Sistema de Registro Flexible:</strong> La información se guarda de manera diferente según los datos introducidos, adaptándose a distintos casos de uso</li>
+                    <li><strong>Exportación a Excel:</strong> Generación automática de reportes en formato Excel para análisis externo</li>
+                    <li><strong>Gráficas y Estadísticas:</strong> Visualización avanzada de datos con múltiples tipos de gráficos (barras, líneas, circulares)</li>
+                    <li><strong>Sistema Multi-plataforma:</strong> Sincronización entre web y móvil mediante API REST</li>
+                </ul>
+            </div>
 
-        // Crear partículas
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlesCount = 3000;
-        const posArray = new Float32Array(particlesCount * 3);
-
-        for(let i = 0; i < particlesCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 100;
-        }
-
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-        const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.05,
-            color: '#ffffff',
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending
-        });
-
-        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particlesMesh);
-
-        // Crear objetos tech-themed
-        const techObjects = [];
-
-        // Crear un móvil/smartphone
-        function createPhone() {
-            const group = new THREE.Group();
-            
-            const bodyGeometry = new THREE.BoxGeometry(1.5, 3, 0.2);
-            const bodyMaterial = new THREE.MeshPhongMaterial({
-                color: 0x1a1a1a,
-                shininess: 100
-            });
-            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
-            
-            const screenGeometry = new THREE.PlaneGeometry(1.3, 2.6);
-            const screenMaterial = new THREE.MeshPhongMaterial({
-                color: 0x00ff88,
-                emissive: 0x00ff88,
-                emissiveIntensity: 0.3
-            });
-            const screen = new THREE.Mesh(screenGeometry, screenMaterial);
-            screen.position.z = 0.11;
-            
-            group.add(body);
-            group.add(screen);
-            return group;
-        }
-
-        // Crear un ordenador/laptop
-        function createLaptop() {
-            const group = new THREE.Group();
-            
-            const baseGeometry = new THREE.BoxGeometry(4, 0.2, 3);
-            const baseMaterial = new THREE.MeshPhongMaterial({
-                color: 0x2a2a2a,
-                shininess: 80
-            });
-            const base = new THREE.Mesh(baseGeometry, baseMaterial);
-            
-            const screenGeometry = new THREE.BoxGeometry(4, 2.5, 0.1);
-            const screenMaterial = new THREE.MeshPhongMaterial({
-                color: 0x0066ff,
-                emissive: 0x0066ff,
-                emissiveIntensity: 0.3
-            });
-            const screen = new THREE.Mesh(screenGeometry, screenMaterial);
-            screen.position.y = 1.5;
-            screen.position.z = -1.5;
-            screen.rotation.x = -0.3;
-            
-            group.add(base);
-            group.add(screen);
-            return group;
-        }
-
-        // Crear símbolos de código
-        function createCodeSymbol() {
-            const group = new THREE.Group();
-            
-            const bracketGeometry = new THREE.TorusGeometry(0.8, 0.15, 8, 20, Math.PI);
-            const bracketMaterial = new THREE.MeshPhongMaterial({
-                color: 0xff00ff,
-                wireframe: true
-            });
-            
-            const leftBracket = new THREE.Mesh(bracketGeometry, bracketMaterial);
-            leftBracket.rotation.z = Math.PI / 2;
-            leftBracket.position.x = -0.5;
-            
-            const rightBracket = new THREE.Mesh(bracketGeometry, bracketMaterial);
-            rightBracket.rotation.z = -Math.PI / 2;
-            rightBracket.position.x = 0.5;
-            
-            group.add(leftBracket);
-            group.add(rightBracket);
-            return group;
-        }
-
-        // Crear matriz de texto estilo hacker
-        function createHackerText() {
-            const group = new THREE.Group();
-            
-            for(let i = 0; i < 5; i++) {
-                const lineGeometry = new THREE.PlaneGeometry(0.1, 1.5);
-                const lineMaterial = new THREE.MeshPhongMaterial({
-                    color: 0x00ff00,
-                    emissive: 0x00ff00,
-                    emissiveIntensity: 0.5,
-                    transparent: true,
-                    opacity: 0.7
-                });
-                const line = new THREE.Mesh(lineGeometry, lineMaterial);
-                line.position.x = (i - 2) * 0.3;
-                group.add(line);
-            }
-            
-            return group;
-        }
-
-        // Añadir objetos a la escena
-        const phone = createPhone();
-        phone.position.set(-15, 5, -20);
-        techObjects.push(phone);
-        scene.add(phone);
-
-        const laptop = createLaptop();
-        laptop.position.set(15, -5, -25);
-        techObjects.push(laptop);
-        scene.add(laptop);
-
-        const codeSymbol1 = createCodeSymbol();
-        codeSymbol1.position.set(-10, -8, -15);
-        techObjects.push(codeSymbol1);
-        scene.add(codeSymbol1);
-
-        const codeSymbol2 = createCodeSymbol();
-        codeSymbol2.position.set(12, 8, -18);
-        techObjects.push(codeSymbol2);
-        scene.add(codeSymbol2);
-
-        const hackerText = createHackerText();
-        hackerText.position.set(0, 0, -30);
-        techObjects.push(hackerText);
-        scene.add(hackerText);
-
-        // Iluminación
-        const light = new THREE.PointLight(0xffffff, 1, 100);
-        light.position.set(10, 10, 10);
-        scene.add(light);
-
-        const light2 = new THREE.PointLight(0x00ff88, 0.5, 50);
-        light2.position.set(-10, -10, 10);
-        scene.add(light2);
-
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        scene.add(ambientLight);
-
-        camera.position.z = 20;
-
-        // Variables para mouse
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-        });
-
-        // Animación
-        let time = 0;
-        function animate() {
-            requestAnimationFrame(animate);
-            time += 0.01;
-
-            particlesMesh.rotation.y += 0.001;
-            particlesMesh.rotation.x += 0.0005;
-
-            techObjects.forEach((obj, i) => {
-                obj.rotation.x += 0.005;
-                obj.rotation.y += 0.008;
-                obj.position.y += Math.sin(time + i) * 0.02;
-            });
-
-            camera.position.x += (mouseX * 3 - camera.position.x) * 0.05;
-            camera.position.y += (mouseY * 3 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Responsive
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-</body>
-</html>
-
-
-
-
-
+            <div class="modal-section">
+                <h3>💻 Tecnologías Utilizadas</h3>
+                <p><strong>Frontend Web:</strong></p>
+                <ul>
+                    <li>HTML5, CSS3 y JavaScript vanilla para la interfaz web</li>
+                    <li>Chart.js o similar para visualización de datos
