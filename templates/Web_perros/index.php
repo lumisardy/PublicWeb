@@ -104,7 +104,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="\static\webPerrosCss\images/slider-img.png" alt="" />
+                      <img src="\static\webPerrosCss\images\slider-img.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="\static\webPerrosCss\images/slider-img2.png" alt="" />
+                      <img src="\static\webPerrosCss\images\slider-img2.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="\static\webPerrosCss\images/slider-img3.png" alt="" />
+                      <img src="\static\webPerrosCss\images\slider-img3.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="\static\webPerrosCss\images/slider-img4.png" alt="" />
+                      <img src="\static\webPerrosCss\images\slider-img4.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -224,7 +224,7 @@
                   </div>
                   <div class="col-md-5">
                     <div class="img-box">
-                      <img src="\static\webPerrosCss\images/slider-img5.png" alt="" />
+                      <img src="\static\webPerrosCss\images\slider-img5.png" alt="" />
                     </div>
                   </div>
                 </div>
@@ -247,7 +247,7 @@
     <div class="how_container">
       <div class="box">
         <div class="img-box">
-          <img src="\static\webPerrosCss\images/cuidado.png" alt="">
+          <img src="\static\webPerrosCss\images\cuidado.png" alt="">
         </div>
         <div class="detail-box">
           <h5>
@@ -261,7 +261,7 @@
       </div>
       <div class="box">
         <div class="img-box">
-          <img src="\static\webPerrosCss\images/alimentacion.png" alt="">
+          <img src="\static\webPerrosCss\images\alimentacion.png" alt="">
         </div>
         <div class="detail-box">
           <h5>
