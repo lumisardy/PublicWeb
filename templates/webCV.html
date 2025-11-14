@@ -855,10 +855,18 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
             <div class="modal-section">
                 <h3>🖼️ Capturas del Proyecto</h3>
                 <div class="image-gallery">
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\Formulario.png"></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\Dashboard.png"></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\Graficos.png"></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\Cronometro.png"></div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/Formulario.png" alt="Formulario">
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/Dashboard.png" alt="Dashboard">
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/Graficos.png" alt="Gráficos">
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/Cronometro.png" alt="Cronómetro">
+                    </div>
                 </div>
                 <p style="margin-top: 15px; font-style: italic; opacity: 0.7;">Nota: Las capturas reales no se pueden mostrar por confidencialidad de la empresa, estan son hasta donde yo desarrollé</p>
             </div>
@@ -980,8 +988,12 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
             <div class="modal-section">
                 <h3>🖼️ Aspectos Visuales</h3>
                 <div class="image-gallery">
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\juego.png"></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\ajustes.png"></div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/juego.png" alt="Juego">
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/ajustes.png" alt="Ajustes">
+                    </div>
                 </div>
             </div>
         </div>
@@ -1133,10 +1145,18 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
             <div class="modal-section">
                 <h3>🖼️ Ejemplos Visuales</h3>
                 <div class="image-gallery">
-                    <div class="gallery-img" onclick="openImageViewer(this)"><video src="\static\images\Autovia2_con_contador.mp4" autoplay muted loop></video></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\caballos.png"></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\autovia.png"></div>
-                    <div class="gallery-img" onclick="openImageViewer(this)"><img src="\static\images\personas.png"></div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <video src="/static/images/Autovia2_con_contador.mp4" muted loop playsinline></video>
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/caballos.png" alt="Caballos">
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/autovia.png" alt="Autovía">
+                    </div>
+                    <div class="gallery-img" onclick="openImageViewer(this)">
+                        <img src="/static/images/personas.png" alt="Personas">
+                    </div>
                 </div>
             </div>
         </div>
@@ -1152,6 +1172,17 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // Inicializar reproducción de videos en miniaturas
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('.gallery-img video');
+            videos.forEach(video => {
+                // Intentar reproducir el video automáticamente
+                video.play().catch(err => {
+                    console.log('Autoplay bloqueado:', err);
+                });
+            });
+        });
+
         // Sistema de visor de imágenes y videos
         function openImageViewer(element) {
             const img = element.querySelector('img');
@@ -1166,7 +1197,7 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
                 // Si es una imagen
                 const newImg = document.createElement('img');
                 newImg.src = img.src;
-                newImg.alt = 'Imagen ampliada';
+                newImg.alt = img.alt || 'Imagen ampliada';
                 viewerContent.appendChild(newImg);
             } else if (video) {
                 // Si es un video
@@ -1174,8 +1205,8 @@ A día de hoy (12/11/2025), estoy más enfocado en el desarrollo móvil con Kotl
                 newVideo.src = video.src;
                 newVideo.controls = true;
                 newVideo.autoplay = true;
-                newVideo.muted = true;
                 newVideo.loop = true;
+                // No poner muted para que el usuario pueda escuchar con los controles
                 viewerContent.appendChild(newVideo);
             }
             
