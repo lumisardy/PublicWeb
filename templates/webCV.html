@@ -52,7 +52,7 @@ body {
 body.cargando { overflow: hidden; }
 ::selection { background: var(--accent); color: var(--bg); }
 a { color: inherit; text-decoration: none; }
-img, video { display: block; max-width: 100%; }
+img, video { display: block; max-width: 100%; height: auto; }
 .mono { font-family: var(--font-mono); }
 .acento { color: var(--accent); }
 .grad {
@@ -237,12 +237,19 @@ section { position: relative; }
 .navegador-barra { display: flex; align-items: center; gap: 7px; padding: 11px 14px; border-bottom: 1px solid var(--border); background: var(--surface2); }
 .navegador-barra i { width: 10px; height: 10px; border-radius: 50%; background: #34343f; }
 .navegador-barra span { margin-left: 12px; flex: 1; font: .66rem var(--font-mono); color: var(--muted); background: rgba(255,255,255,.04); padding: 5px 12px; border-radius: 6px; }
-.miniaturas { display: grid; gap: 16px; position: relative; }
-.mini { border-radius: 12px; overflow: hidden; border: 1px solid var(--border2); position: relative; box-shadow: 0 30px 70px -25px rgba(0,0,0,.9); }
-.mini:nth-child(1) { transform: rotate(-2deg); width: 84%; }
-.mini:nth-child(2) { transform: rotate(1.6deg); width: 78%; justify-self: end; margin-top: -16%; }
-.mini .estado { position: absolute; top: 12px; left: 12px; font: 700 .6rem var(--font-mono); letter-spacing: .14em; padding: 5px 9px; border-radius: 6px; background: rgba(0,0,0,.75); color: #fff; }
-.mini .estado.vivo { background: var(--rojo); }
+.red-canales { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.tarjeta-canal { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--border2); background: var(--surface); box-shadow: 0 30px 70px -25px rgba(0,0,0,.9); transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .3s; }
+.tarjeta-canal:nth-child(odd) { transform: translateY(14px); }
+.tarjeta-canal:hover { transform: translateY(-6px); border-color: var(--c); }
+.tarjeta-canal-img { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #0b0b0f; }
+.tarjeta-canal-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.tarjeta-canal:hover .tarjeta-canal-img img { transform: scale(1.05); }
+.tarjeta-canal .idioma { position: absolute; bottom: 10px; right: 10px; z-index: 1; font: 700 .6rem var(--font-mono); letter-spacing: .14em; padding: 5px 8px; border-radius: 6px; background: rgba(0,0,0,.75); color: #fff; }
+.tarjeta-canal .idioma.vivo { background: var(--rojo); }
+.tarjeta-canal-info { padding: 12px 14px 14px; display: grid; gap: 3px; }
+.tarjeta-canal-info b { font: 700 .95rem var(--font-display); letter-spacing: -.01em; color: var(--text); }
+.tarjeta-canal-info span { font-size: .8rem; line-height: 1.35; color: var(--muted); }
+.tarjeta-canal-info i { font: normal .64rem var(--font-mono); color: var(--c); letter-spacing: .04em; overflow-wrap: anywhere; }
 .canales-red { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
 .canal { font: .7rem var(--font-mono); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border2); }
 .canal b { color: var(--c); font-weight: 400; margin-right: 6px; }
@@ -430,6 +437,11 @@ footer a:hover { color: var(--accent); }
   .contacto-rejilla { grid-template-columns: 1fr; }
   .barra { grid-template-columns: 90px 1fr 34px; }
   .navegador { transform: none; }
+  .red-canales { gap: 12px; }
+  .tarjeta-canal:nth-child(odd) { transform: none; }
+  .tarjeta-canal-info { padding: 10px 11px 12px; }
+  .tarjeta-canal-info b { font-size: .85rem; }
+  .tarjeta-canal-info span { font-size: .74rem; }
   .pipe-svg .nodo text { font-size: 19px; }
   .pipe-svg .nodo .n { font-size: 14px; }
 }
@@ -603,23 +615,36 @@ footer a:hover { color: var(--accent); }
         <div class="panel-dentro">
           <div>
             <div class="panel-num"><b>C</b> CONTENIDO · IA GENERATIVA</div>
-            <h3>Expediente Null</h3>
+            <h3>Red de canales</h3>
             <div class="rol">Creador · sistema de producción con IA</div>
-            <p class="desc">Una red de canales de YouTube de documentales de misterio sobre el lado oscuro de internet. Cada episodio de 20 minutos lo investiga, narra, monta, revisa y publica un sistema que he construido con agentes de IA.</p>
+            <p class="desc">Cuatro canales de YouTube de documentales, en español y en inglés: misterios de internet, fraudes empresariales y crímenes de la antigüedad. Cada episodio de 20 minutos lo investiga, narra, monta, revisa y publica un sistema que he construido con agentes de IA.</p>
             <ul class="lista-hechos">
-              <li>Piloto automático programado: avanza cada episodio sin intervención</li>
+              <li>Piloto automático programado: avanza cada episodio de los cuatro canales sin intervención</li>
               <li>Montaje en código, voz sintética y crítica del vídeo con IA de visión</li>
               <li>Subida y programación por la API de YouTube, avisos por Telegram</li>
             </ul>
-            <div class="canales-red"><span class="canal"><b>ES</b>Expediente Null</span><span class="canal"><b>EN</b>Null Dossier</span><span class="canal"><b>EN</b>Paper Empires</span></div>
+            <div class="canales-red"><span class="canal"><b>4</b>canales</span><span class="canal"><b>2</b>idiomas</span><span class="canal"><b>1</b>episodio por semana y canal</span><span class="canal"><b>+</b>Shorts casi a diario</span></div>
             <div class="panel-enlaces">
-              <a class="boton principal" href="https://www.youtube.com/@expedientenull" target="_blank" rel="noopener" data-cursor="VER">Ver el canal <span class="flecha">↗</span></a>
-              <a class="boton" href="#pipeline">Cómo funciona</a>
+              <a class="boton principal" href="#pipeline">Cómo funciona <span class="flecha">↓</span></a>
             </div>
           </div>
-          <div class="miniaturas">
-            <a class="mini" href="https://www.youtube.com/watch?v=-_X43KmG2sg" target="_blank" rel="noopener" data-cursor="PLAY"><span class="estado vivo">PUBLICADO</span><img src="/static/portfolio/en-002.jpg" alt="Miniatura: Lazarus y el Banco de Bangladesh" loading="lazy" width="960" height="540"></a>
-            <div class="mini"><span class="estado">PRÓXIMO</span><img src="/static/portfolio/en-003.jpg" alt="Miniatura: Cicada 3301" loading="lazy" width="960" height="540"></div>
+          <div class="red-canales">
+            <a class="tarjeta-canal" href="https://www.youtube.com/@expedientenull" target="_blank" rel="noopener" data-cursor="VER">
+              <div class="tarjeta-canal-img"><span class="idioma vivo">ES</span><img src="/static/portfolio/canal-es.jpg" alt="Miniatura de Expediente Null: NotPetya" loading="lazy" width="960" height="540"></div>
+              <div class="tarjeta-canal-info"><b>Expediente Null</b><span>Misterios del lado oscuro de internet</span><i>@expedientenull</i></div>
+            </a>
+            <a class="tarjeta-canal" href="https://www.youtube.com/@NullDossier-g9d" target="_blank" rel="noopener" data-cursor="VER">
+              <div class="tarjeta-canal-img"><span class="idioma">EN</span><img src="/static/portfolio/canal-nd.jpg" alt="Miniatura de Null Dossier: Cicada 3301" loading="lazy" width="960" height="540"></div>
+              <div class="tarjeta-canal-info"><b>Null Dossier</b><span>Expediente Null para el público en inglés</span><i>@NullDossier-g9d</i></div>
+            </a>
+            <a class="tarjeta-canal" href="https://www.youtube.com/@PaperEmpires-m1l" target="_blank" rel="noopener" data-cursor="VER">
+              <div class="tarjeta-canal-img"><span class="idioma">EN</span><img src="/static/portfolio/canal-pe.jpg" alt="Miniatura de Paper Empires: Enron" loading="lazy" width="960" height="540"></div>
+              <div class="tarjeta-canal-info"><b>Paper Empires</b><span>Fraudes y caídas de grandes empresas</span><i>@PaperEmpires-m1l</i></div>
+            </a>
+            <a class="tarjeta-canal" href="https://www.youtube.com/@DeadTellTales" target="_blank" rel="noopener" data-cursor="VER">
+              <div class="tarjeta-canal-img"><span class="idioma">EN</span><img src="/static/portfolio/canal-dtt.jpg" alt="Miniatura de Dead Tell Tales: Ötzi" loading="lazy" width="960" height="540"></div>
+              <div class="tarjeta-canal-info"><b>Dead Tell Tales</b><span>Casos sin resolver de la antigüedad</span><i>@DeadTellTales</i></div>
+            </a>
           </div>
         </div>
       </article>
@@ -646,7 +671,7 @@ footer a:hover { color: var(--accent); }
   <div class="envoltura">
     <div class="etiqueta">02 — IA aplicada</div>
     <h2 class="titulo-seccion"><span class="linea"><span>Un estudio de vídeo</span></span><span class="linea"><span class="grad">que trabaja solo.</span></span></h2>
-    <p class="texto-grande">Así se produce un episodio de Expediente Null. Agentes de IA con habilidades propias, scripts en Node y Python, y una tarea programada que lo pone en marcha tres veces al día.</p>
+    <p class="texto-grande">Así se produce cada episodio de la red. Agentes de IA con habilidades propias, scripts en Node y Python, y una tarea programada que lo pone en marcha tres veces al día.</p>
     <div class="pipe-rejilla">
       <svg class="pipe-svg" id="pipeSvg" viewBox="0 0 600 640" role="img" aria-label="Pasos del pipeline: idea, investigación, guion, voz, montaje, render, crítica, miniatura y publicación">
         <defs><linearGradient id="gradPipe" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00e6b4"/><stop offset="1" stop-color="#7b61ff"/></linearGradient></defs>
@@ -656,7 +681,7 @@ footer a:hover { color: var(--accent); }
       <div class="terminal">
         <div class="terminal-barra"><i></i><i></i><i></i><span>piloto — expediente-null</span></div>
         <div class="terminal-cuerpo" id="terminal">
-          <div class="l"><span class="d">03:00</span> <span class="h">piloto</span> arranca · 3 canales en el calendario</div>
+          <div class="l"><span class="d">03:00</span> <span class="h">piloto</span> arranca · 4 canales en el calendario</div>
           <div class="l"><span class="d">03:01</span> ideas      › tema elegido y puntuado</div>
           <div class="l"><span class="d">03:14</span> investigación › 19 fuentes verificadas <span class="ok">✓</span></div>
           <div class="l"><span class="d">03:52</span> guion      › 2.863 palabras · 112 escenas <span class="ok">✓</span></div>
@@ -1464,6 +1489,15 @@ document.getElementById('anio').textContent = new Date().getFullYear();
 /* ========== IDIOMA (ES / EN) ========== */
 // El español está escrito en la página; el inglés se aplica recorriendo sus textos con este diccionario.
 const EN = {
+  'Red de canales': 'Channel network',
+  'Cuatro canales de YouTube de documentales, en español y en inglés: misterios de internet, fraudes empresariales y crímenes de la antigüedad. Cada episodio de 20 minutos lo investiga, narra, monta, revisa y publica un sistema que he construido con agentes de IA.':
+    'Four documentary YouTube channels, in Spanish and English: internet mysteries, corporate fraud and ancient crimes. Each 20-minute episode is researched, narrated, edited, reviewed and published by a system I built with AI agents.',
+  'Piloto automático programado: avanza cada episodio de los cuatro canales sin intervención': 'Scheduled autopilot: moves every episode on all four channels forward with no hands-on work',
+  'canales': 'channels', 'idiomas': 'languages', 'episodio por semana y canal': 'episode a week per channel', 'Shorts casi a diario': 'Shorts almost every day',
+  'Misterios del lado oscuro de internet': 'Mysteries from the dark side of the internet',
+  'Expediente Null para el público en inglés': 'Expediente Null for English-speaking audiences',
+  'Fraudes y caídas de grandes empresas': 'Frauds and collapses of big companies',
+  'Casos sin resolver de la antigüedad': 'Unsolved cases from the ancient world',
   // Navegación y cabecera
   'Código · IA · Negocios': 'Code · AI · Business',
   'Ecosistema': 'Ecosystem', 'IA': 'AI', 'Habilidades': 'Skills', 'Proyectos': 'Projects', 'Trayectoria': 'Journey', 'Contacto': 'Contact',
@@ -1512,10 +1546,10 @@ const EN = {
   'Conectando con la tienda…': 'Connecting to the store…', 'La tienda no ha respondido ahora mismo.': "The store didn't respond just now.", 'Ábrela aquí ↗': 'Open it here ↗',
   // Pipeline
   '02 — IA aplicada': '02 — Applied AI', 'Un estudio de vídeo': 'A video studio', 'que trabaja solo.': 'that runs itself.',
-  'Así se produce un episodio de Expediente Null. Agentes de IA con habilidades propias, scripts en Node y Python, y una tarea programada que lo pone en marcha tres veces al día.':
-    'This is how an Expediente Null episode gets made. AI agents with their own skills, Node and Python scripts, and a scheduled task that kicks it off three times a day.',
+  'Así se produce cada episodio de la red. Agentes de IA con habilidades propias, scripts en Node y Python, y una tarea programada que lo pone en marcha tres veces al día.':
+    'This is how every episode in the network gets made. AI agents with their own skills, Node and Python scripts, and a scheduled task that kicks it off three times a day.',
   'piloto — expediente-null': 'autopilot — expediente-null', 'piloto': 'autopilot',
-  'arranca · 3 canales en el calendario': 'starts · 3 channels on the calendar',
+  'arranca · 4 canales en el calendario': 'starts · 4 channels on the calendar',
   'ideas › tema elegido y puntuado': 'ideas      › topic picked and scored',
   'investigación › 19 fuentes verificadas': 'research   › 19 sources verified',
   'guion › 2.863 palabras · 112 escenas': 'script     › 2,863 words · 112 scenes',
