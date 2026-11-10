@@ -481,8 +481,10 @@ footer a:hover { color: var(--accent); }
 
 /* ===== CONSOLA INTERACTIVA ===== */
 .consola { padding: 14vh 0 6vh; position: relative; z-index: 2; }
-.consola-rejilla { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(28px, 5vw, 70px); align-items: center; }
-.consola-atajos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.consola-rejilla { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 30px clamp(28px, 5vw, 70px); align-items: end; }
+.consola-rejilla .titulo-seccion { margin-bottom: 0; font-size: clamp(2.2rem, 4.4vw, 4.2rem); }
+.consola-rejilla .consola-term { grid-column: 1 / -1; }
+.consola-atajos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
 .consola-atajos button { font: .72rem var(--font-mono); color: var(--accent); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(0,230,180,.28); background: rgba(0,230,180,.05); transition: background .2s, transform .2s; }
 .consola-atajos button:hover { background: rgba(0,230,180,.16); transform: translateY(-2px); }
 .terminal.consola-term { position: relative; top: 0; box-shadow: 0 40px 120px rgba(0,0,0,.55), 0 0 90px rgba(123,97,255,.14); }
@@ -920,6 +922,8 @@ footer a:hover { color: var(--accent); }
     <div>
       <div class="etiqueta"><span class="punto-vivo"></span>&nbsp;Consola interactiva</div>
       <h2 class="titulo-seccion"><span class="linea"><span>Pregúntale</span></span><span class="linea"><span class="grad">a la terminal.</span></span></h2>
+    </div>
+    <div>
       <p class="texto-grande">Funciona de verdad: escribe un comando o pulsa uno. Lee mi tienda y mi GitHub en directo, mueve las partículas y navega por la página.</p>
       <div class="consola-atajos" id="consolaAtajos"></div>
     </div>
@@ -1654,17 +1658,20 @@ const ALIAS = { help: 'ayuda', '?': 'ayuda', whoami: 'quiensoy', about: 'quienso
 const ORDENES = {
   ayuda: () => [
     L('Comandos disponibles:', 'Available commands:'),
-    `  <span class="ok">${L('quiensoy', 'whoami')}</span>      ${L('quién soy, en tres líneas', 'who I am, in three lines')}`,
-    `  <span class="ok">${L('negocios', 'businesses')}</span>   ${L('mis tres negocios en marcha', 'my three running businesses')}`,
-    `  <span class="ok">${L('proyectos', 'projects')}</span>    ${L('lo que he construido', "what I've built")}`,
-    `  <span class="ok">stack</span>       ${L('tecnologías que uso', 'the tech I use')}`,
-    `  <span class="ok">${L('tienda', 'store')}</span>       ${L('productos de mi tienda, en directo', 'products from my store, live')}`,
-    `  <span class="ok">github</span>      ${L('mis últimos push, en directo', 'my latest pushes, live')}`,
-    `  <span class="ok">${L('ir', 'go')} &lt;${L('sección', 'section')}&gt;</span>  ${L('navega: ir proyectos, ir ia, ir contacto…', 'navigate: go projects, go ai, go contact…')}`,
-    `  <span class="ok">${L('particulas', 'particles')}</span>   ${L('cambia la forma del fondo 3D', 'morph the 3D background')}`,
-    `  <span class="ok">reel</span>        ${L('abre el showreel de 30 s', 'open the 30 s showreel')}`,
-    `  <span class="ok">${L('contacto', 'contact')}</span>     ${L('cómo hablar conmigo', 'how to reach me')}`,
-    `  <span class="ok">${L('idioma', 'lang')}</span> · <span class="ok">${L('limpiar', 'clear')}</span>`,
+    ...[
+      [L('quiensoy', 'whoami'), L('quién soy, en tres líneas', 'who I am, in three lines')],
+      [L('negocios', 'businesses'), L('mis tres negocios en marcha', 'my three running businesses')],
+      [L('proyectos', 'projects'), L('lo que he construido', "what I've built")],
+      ['stack', L('tecnologías que uso', 'the tech I use')],
+      [L('tienda', 'store'), L('productos de mi tienda, en directo', 'products from my store, live')],
+      ['github', L('mis últimos push, en directo', 'my latest pushes, live')],
+      [L('ir <sección>', 'go <section>'), L('navega: ir proyectos, ir ia, ir contacto…', 'navigate: go projects, go ai, go contact…')],
+      [L('particulas', 'particles'), L('cambia la forma del fondo 3D', 'morph the 3D background')],
+      ['reel', L('abre el showreel de 30 s', 'open the 30 s showreel')],
+      [L('contacto', 'contact'), L('cómo hablar conmigo', 'how to reach me')],
+      [L('idioma', 'lang'), L('cambia entre español e inglés', 'switch between Spanish and English')],
+      [L('limpiar', 'clear'), L('vacía la pantalla', 'clear the screen')],
+    ].map(([c, d]) => `  <span class="ok">${esc(c)}</span>${' '.repeat(Math.max(2, 15 - c.length))}${d}`),
     `<span class="d">${L('Tab autocompleta · ↑↓ recorre el historial', 'Tab autocompletes · ↑↓ walks the history')}</span>`,
   ],
   quiensoy: () => [
@@ -1712,7 +1719,7 @@ const ORDENES = {
     imprimir(`<span class="d">GET /api/github …</span>`);
     const repos = await leerGithub();
     return [`<span class="ok">200</span> · ${L('últimos push de', 'latest pushes by')} ${enlace('https://github.com/lumisardy', '@lumisardy')}`,
-      ...repos.slice(0, 6).map((r) => `  ${enlace(r.url, esc(r.nombre.padEnd(22)))} <span class="d">${esc((r.lenguaje || '—').padEnd(10))} ${hace(r.actualizado)}</span>`)];
+      ...repos.slice(0, 6).map((r) => `  ${enlace(r.url, esc(r.nombre))}${' '.repeat(Math.max(2, 24 - r.nombre.length))}<span class="d">${esc((r.lenguaje || '—').padEnd(10))} ${hace(r.actualizado)}</span>`)];
   },
   ir: (arg) => {
     const destino = SECCIONES[(arg || '').toLowerCase()];

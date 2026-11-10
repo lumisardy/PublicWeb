@@ -64,7 +64,8 @@ def tienda():
                 })
             _tienda.update(hora=time.time(), productos=productos)
         except Exception:
-            pass  # Si Shopify no responde, se sirve lo último que se tenga
+            # Si Shopify no responde (o limita las peticiones), se sirve lo último que se tenga y se reintenta en 2 minutos
+            _tienda["hora"] = time.time() - 1680
     return jsonify(tienda=TIENDA_URL, total=len(_tienda["productos"]), productos=_tienda["productos"])
 
 @app.route("/api/github")
