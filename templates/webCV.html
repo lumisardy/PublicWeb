@@ -7,9 +7,21 @@
 <meta name="description" content="Portfolio de Aday Fernández: desarrollo full stack, inteligencia artificial, automatización, tienda online (Contorno Beauty), agencia Tu Socio Digital y una red de canales de YouTube producida con IA.">
 <meta property="og:title" content="Aday Fernández — Desarrollador, IA y negocios digitales">
 <meta property="og:description" content="Código, IA y negocios reales: una tienda online, una agencia y una red de canales de YouTube que se produce sola.">
-<meta property="og:image" content="/static/portfolio/web-cb.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ base }}/">
+<meta property="og:image" content="{{ base }}/static/portfolio/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{{ base }}/">
 <meta name="theme-color" content="#060608">
-<link rel="icon" href="/static/images/IconoGit.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2300e6b4'/%3E%3Cstop offset='1' stop-color='%237b61ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%23060608'/%3E%3Cpath d='M18 48 30 16h4l12 32h-6l-2.6-7.4H26.6L24 48zm10.4-12.6h7.2L32 25z' fill='url(%23g)'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "Person", "name": "Aday Fernández", "jobTitle": "Desarrollador full stack", "url": "{{ base }}/",
+  "address": { "@type": "PostalAddress", "addressRegion": "Cantabria", "addressCountry": "ES" },
+  "knowsAbout": ["Kotlin", "Python", "Inteligencia artificial", "Automatización", "Shopify", "Three.js"],
+  "sameAs": ["https://github.com/lumisardy", "https://www.linkedin.com/in/aday-fernandez-velar-85aa1626b/", "https://contornobeauty.com", "https://tusociodigitalcantabria.com/"] }
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
@@ -449,6 +461,52 @@ footer a:hover { color: var(--accent); }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .revelar, .manifiesto .palabra { opacity: 1 !important; }
 }
+
+/* ===== PROGRESO DE SCROLL Y GRANO ===== */
+.progreso-scroll { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 810; background: linear-gradient(90deg, var(--accent), var(--accent2), #ff6bd5); transform: scaleX(0); transform-origin: 0 50%; pointer-events: none; }
+.grano { position: fixed; inset: 0; z-index: 790; pointer-events: none; opacity: .05; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* ===== GITHUB EN DIRECTO ===== */
+.git { padding: 0 0 12vh; position: relative; z-index: 2; }
+.git-cab { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.git-cab .etiqueta { margin-bottom: 0; }
+.git-lista { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; min-height: 176px; }
+.repo { display: flex; flex-direction: column; gap: 12px; padding: 18px 20px; border-radius: 14px; border: 1px solid var(--border); background: rgba(16,16,23,.8); backdrop-filter: blur(6px); transition: border-color .25s, transform .25s; min-width: 0; }
+.repo:hover { border-color: var(--accent); transform: translateY(-3px); }
+.repo b { font: 700 .88rem var(--font-mono); color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.repo span { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font: .64rem var(--font-mono); color: var(--muted); letter-spacing: .06em; }
+.repo i { font-style: normal; display: inline-flex; align-items: center; gap: 7px; }
+.repo i::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--c, var(--dim)); box-shadow: 0 0 10px var(--c, transparent); }
+.git-vacio { color: var(--muted); font: .78rem var(--font-mono); }
+
+/* ===== CONSOLA INTERACTIVA ===== */
+.consola { padding: 14vh 0 6vh; position: relative; z-index: 2; }
+.consola-rejilla { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(28px, 5vw, 70px); align-items: center; }
+.consola-atajos { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+.consola-atajos button { font: .72rem var(--font-mono); color: var(--accent); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(0,230,180,.28); background: rgba(0,230,180,.05); transition: background .2s, transform .2s; }
+.consola-atajos button:hover { background: rgba(0,230,180,.16); transform: translateY(-2px); }
+.terminal.consola-term { position: relative; top: 0; box-shadow: 0 40px 120px rgba(0,0,0,.55), 0 0 90px rgba(123,97,255,.14); }
+.consola-salida { height: 380px; overflow-y: auto; padding: 18px 18px 8px; font: .78rem/1.7 var(--font-mono); color: #b9b9c8; scrollbar-width: thin; scrollbar-color: var(--dim) transparent; }
+.consola-salida div { white-space: pre-wrap; word-break: break-word; animation: lineaConsola .25s both; }
+@keyframes lineaConsola { from { opacity: 0; transform: translateY(4px); } }
+.consola-salida .cmd { color: var(--text); margin-top: 10px; }
+.consola-salida .cmd::before { content: '❯ '; color: var(--accent); }
+.consola-salida .ok { color: var(--accent); } .consola-salida .h { color: var(--accent2); } .consola-salida .w { color: var(--ambar); } .consola-salida .d { color: var(--dim); }
+.consola-salida a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.consola-entrada { display: flex; align-items: center; gap: 10px; padding: 12px 18px 16px; border-top: 1px solid var(--border); font: .82rem var(--font-mono); }
+.consola-entrada label { color: var(--accent); }
+.consola-entrada input { flex: 1; min-width: 0; background: none; border: 0; outline: none; color: var(--text); font: inherit; caret-color: var(--accent); }
+.consola-entrada input::placeholder { color: var(--dim); }
+@media (max-width: 1024px) {
+  .consola-rejilla { grid-template-columns: 1fr; }
+  .git-lista { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .git-lista { grid-template-columns: 1fr; }
+  .consola-salida { height: 320px; font-size: .72rem; }
+  .consola-entrada input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .consola-salida div { animation: none; } }
 </style>
 </head>
 <body class="cargando">
@@ -462,6 +520,8 @@ footer a:hover { color: var(--accent); }
 <div class="cursor" id="cursor"></div>
 <div class="cursor-anillo" id="anillo"><span class="cursor-texto" id="cursorTexto"></span></div>
 <div id="escena"></div>
+<div class="grano" aria-hidden="true"></div>
+<div class="progreso-scroll" id="progresoScroll" aria-hidden="true"></div>
 
 <nav class="nav" id="nav">
   <a href="#inicio" class="logo">&lt;Aday/&gt;</a>
@@ -820,6 +880,17 @@ footer a:hover { color: var(--accent); }
   </div>
 </section>
 
+<!-- ===== GITHUB EN DIRECTO ===== -->
+<section class="git" id="git" data-forma="4">
+  <div class="envoltura">
+    <div class="git-cab">
+      <div class="etiqueta"><span class="punto-vivo"></span>&nbsp;En directo desde GitHub · últimos push</div>
+      <a class="proy-accion" href="https://github.com/lumisardy" target="_blank" rel="noopener">github.com/lumisardy ↗</a>
+    </div>
+    <div class="git-lista" id="gitLista"><p class="git-vacio">Leyendo los últimos repositorios…</p></div>
+  </div>
+</section>
+
 <!-- ===== MARQUESINA ===== -->
 <section class="marquesina" aria-hidden="true">
   <div class="marq-fila" data-marq="1"><span>Kotlin</span><em>✦</em><span class="h">Python</span><em>✦</em><span>FastAPI</span><em>✦</em><span class="h">Three.js</span><em>✦</em><span>Shopify</span><em>✦</em><span class="h">YOLO</span><em>✦</em><span>Remotion</span><em>✦</em><span class="h">Docker</span><em>✦</em><span>Kotlin</span><em>✦</em><span class="h">Python</span><em>✦</em><span>FastAPI</span><em>✦</em><span class="h">Three.js</span><em>✦</em><span>Shopify</span><em>✦</em><span class="h">YOLO</span><em>✦</em><span>Remotion</span><em>✦</em><span class="h">Docker</span><em>✦</em></div>
@@ -839,6 +910,26 @@ footer a:hover { color: var(--accent); }
       <div class="hito"><div class="hito-fecha">PRÁCTICAS</div><div><h6>Dashboard RTM en empresa</h6><p>Sistema web y móvil de control de horas con requisitos, plazos y estándares de un equipo real.</p></div></div>
       <div class="hito"><div class="hito-fecha">2026</div><div><h6>Tres negocios propios</h6><p>Lanzo Tu Socio Digital, abro la tienda Contorno Beauty y construyo Expediente Null, una red de canales de YouTube producida con IA.</p></div></div>
       <div class="hito"><div class="hito-fecha">AHORA</div><div><h6>Abierto a nuevos retos</h6><p>Busco un equipo donde aprender cada día y aportar todo esto: código, IA y visión de negocio. En remoto o en Cantabria.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONSOLA INTERACTIVA ===== -->
+<section class="consola" id="consola" data-forma="3">
+  <div class="envoltura consola-rejilla">
+    <div>
+      <div class="etiqueta"><span class="punto-vivo"></span>&nbsp;Consola interactiva</div>
+      <h2 class="titulo-seccion"><span class="linea"><span>Pregúntale</span></span><span class="linea"><span class="grad">a la terminal.</span></span></h2>
+      <p class="texto-grande">Funciona de verdad: escribe un comando o pulsa uno. Lee mi tienda y mi GitHub en directo, mueve las partículas y navega por la página.</p>
+      <div class="consola-atajos" id="consolaAtajos"></div>
+    </div>
+    <div class="terminal consola-term" id="consolaTerm">
+      <div class="terminal-barra"><i></i><i></i><i></i><span>aday@portfolio: ~</span></div>
+      <div class="consola-salida" id="consolaSalida" data-lenis-prevent aria-live="polite"></div>
+      <form class="consola-entrada" id="consolaForm" autocomplete="off">
+        <label for="consolaInput">❯</label>
+        <input id="consolaInput" type="text" placeholder="Escribe un comando y pulsa Intro…" spellcheck="false" autocapitalize="off" autocomplete="off">
+      </form>
     </div>
   </div>
 </section>
@@ -993,7 +1084,7 @@ document.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('cli
 }));
 
 /* ========== ESCENA WEBGL: PARTÍCULAS QUE CAMBIAN DE FORMA ========== */
-const N = movil ? 4200 : 9000;
+const N = movil ? 4200 : 14000;
 const contenedor = document.getElementById('escena');
 let renderer, escena, camara, puntos, material, formas = [], formaActual = 0, morph = { v: 1 };
 const raton = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -1078,26 +1169,34 @@ function iniciarEscena() {
   geo.setAttribute('aRnd', new THREE.BufferAttribute(azar, 1));
   material = new THREE.ShaderMaterial({
     transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
-    uniforms: { uMix: { value: 1 }, uTime: { value: 0 }, uSize: { value: movil ? 3.2 : 2.9 }, uPR: { value: renderer.getPixelRatio() }, uOpac: { value: 1 } },
+    uniforms: { uMix: { value: 1 }, uTime: { value: 0 }, uSize: { value: movil ? 3.2 : 2.6 }, uPR: { value: renderer.getPixelRatio() }, uOpac: { value: 1 },
+      uRayO: { value: new THREE.Vector3(0, 0, 50) }, uRayD: { value: new THREE.Vector3(0, 0, -1) }, uFuerza: { value: 0 }, uPulso: { value: 0 }, uVel: { value: 0 } },
     vertexShader: `
       attribute vec3 aA; attribute vec3 aB; attribute float aRnd;
-      uniform float uMix, uTime, uSize, uPR;
-      varying float vRnd; varying vec3 vPos;
+      uniform float uMix, uTime, uSize, uPR, uFuerza, uPulso, uVel;
+      uniform vec3 uRayO, uRayD;
+      varying float vRnd, vCerca; varying vec3 vPos;
       void main() {
         float m = clamp(uMix * 1.3 - aRnd * .3, 0., 1.);
         m = m * m * (3. - 2. * m);
         vec3 p = mix(aA, aB, m);
         float t = sin(m * 3.14159);
         p += normalize(p + .0001) * t * (.4 + aRnd * .9);
-        p += .05 * vec3(sin(uTime * .8 + aRnd * 40. + p.y * 1.7), cos(uTime * .7 + aRnd * 30. + p.x * 1.7), sin(uTime * .6 + aRnd * 20. + p.z * 1.7));
+        p += (.05 + uVel * .22) * vec3(sin(uTime * .8 + aRnd * 40. + p.y * 1.7), cos(uTime * .7 + aRnd * 30. + p.x * 1.7), sin(uTime * .6 + aRnd * 20. + p.z * 1.7));
+        // El ratón aparta las partículas que rodean su rayo; un clic lanza una onda
+        vec3 rel = p - uRayO;
+        vec3 perp = rel - uRayD * dot(rel, uRayD);
+        float dist = length(perp);
+        float cerca = smoothstep(1.15 + uPulso * 2.6, 0., dist) * uFuerza;
+        p += (perp / (dist + .001)) * cerca * (.6 + uPulso * 1.7 + aRnd * .35);
         vec4 mv = modelViewMatrix * vec4(p, 1.);
         gl_Position = projectionMatrix * mv;
-        gl_PointSize = uSize * uPR * (.55 + aRnd * .9) * (7. / -mv.z);
-        vRnd = aRnd; vPos = p;
+        gl_PointSize = uSize * uPR * (.55 + aRnd * .9) * (1. + cerca * .9) * (7. / -mv.z);
+        vRnd = aRnd; vPos = p; vCerca = cerca;
       }`,
     fragmentShader: `
       uniform float uOpac;
-      varying float vRnd; varying vec3 vPos;
+      varying float vRnd, vCerca; varying vec3 vPos;
       void main() {
         float d = length(gl_PointCoord - .5);
         if (d > .5) discard;
@@ -1106,7 +1205,8 @@ function iniciarEscena() {
         float k = clamp((vPos.x + vPos.y * .6) / 9. + .5, 0., 1.);
         vec3 c = mix(c1, c2, k);
         c = mix(c, c3, smoothstep(.85, 1., vRnd) * .7);
-        gl_FragColor = vec4(c, a * (.55 + vRnd * .45) * uOpac);
+        c = mix(c, vec3(1.), vCerca * .55);
+        gl_FragColor = vec4(c, a * (.5 + vRnd * .4 + vCerca * .4) * uOpac);
       }`
   });
   puntos = new THREE.Points(geo, material);
@@ -1150,9 +1250,28 @@ function bucle() {
   const giroAuto = formaActual === 1 || formaActual === 4 ? 0 : t * .06;
   puntos.rotation.y = giroAuto + raton.x * .45;
   puntos.rotation.x = (formaActual === 2 ? .45 : 0) + raton.y * .25;
+  // Rayo del puntero, llevado al espacio de las partículas (que están girando)
+  const u = material.uniforms, ahora = performance.now();
+  ndc.x += (raton.tx - ndc.x) * .2; ndc.y += (-raton.ty - ndc.y) * .2;
+  rayo.setFromCamera(ndc, camara);
+  puntos.updateMatrixWorld();
+  inversa.copy(puntos.matrixWorld).invert();
+  u.uRayO.value.copy(rayo.ray.origin).applyMatrix4(inversa);
+  u.uRayD.value.copy(rayo.ray.direction).transformDirection(inversa);
+  const quiere = !reducir && ahora - ultimoMov < (tactil ? 700 : 5000) ? 1 : 0;
+  u.uFuerza.value += (quiere - u.uFuerza.value) * .06;
+  const vel = lenis ? Math.min(1, Math.abs(lenis.velocity || 0) / 45) : 0;
+  u.uVel.value += (vel - u.uVel.value) * .08;
   renderer.render(escena, camara);
 }
-addEventListener('pointermove', (e) => { raton.tx = (e.clientX / innerWidth - .5) * 2; raton.ty = (e.clientY / innerHeight - .5) * 2; });
+const rayo = new THREE.Raycaster(), ndc = new THREE.Vector2(), inversa = new THREE.Matrix4();
+let ultimoMov = -1e9;
+addEventListener('pointermove', (e) => { raton.tx = (e.clientX / innerWidth - .5) * 2; raton.ty = (e.clientY / innerHeight - .5) * 2; ultimoMov = performance.now(); });
+addEventListener('pointerdown', (e) => {
+  if (!material || reducir || !hayGsap || e.target.closest('a, button, input, video, .modal, .paleta, .reel')) return;
+  ultimoMov = performance.now();
+  gsap.fromTo(material.uniforms.uPulso, { value: 1 }, { value: 0, duration: 1.4, ease: 'power2.out', overwrite: true });
+});
 
 /* ========== CARGA ========== */
 async function cargar() {
@@ -1247,6 +1366,10 @@ function montarScroll() {
     ST.create({ trigger: '.hero', start: 'bottom 80%', end: 'bottom 20%', scrub: true,
       onUpdate: (st) => { material.uniforms.uOpac.value = 1 - st.progress * .62; } });
   }
+
+  // Barra de progreso de lectura
+  const barra = document.getElementById('progresoScroll');
+  ST.create({ start: 0, end: 'max', onUpdate: (st) => { barra.style.transform = `scaleX(${st.progress})`; } });
 
   if (reducir) { pintarManifiesto(); return; }
 
@@ -1455,6 +1578,7 @@ const comandos = [
   { t: 'Mi GitHub', s: 'enlace', f: () => open('https://github.com/lumisardy', '_blank') },
   { t: 'Mi LinkedIn', s: 'enlace', f: () => open('https://www.linkedin.com/in/aday-fernandez-velar-85aa1626b/', '_blank') },
   { t: 'Transformar las partículas', s: 'sorpresa', f: () => cambiarForma((formaActual + 1) % formas.length) },
+  { t: 'Abrir la consola interactiva', s: 'sorpresa', f: () => { irA('#consola'); setTimeout(() => document.getElementById('consolaInput').focus({ preventScroll: true }), 1500); } },
 ];
 const paleta = document.getElementById('paleta'), pInput = document.getElementById('paletaInput'), pLista = document.getElementById('paletaLista');
 let pSel = 0, pFiltrados = comandos;
@@ -1485,6 +1609,165 @@ addEventListener('keydown', (e) => {
 function hora() { document.getElementById('reloj').textContent = 'Cantabria — ' + new Intl.DateTimeFormat('es-ES', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Madrid' }).format(new Date()); }
 hora(); setInterval(hora, 30000);
 document.getElementById('anio').textContent = new Date().getFullYear();
+
+/* ========== GITHUB EN DIRECTO ========== */
+const L = (es, en) => (idioma === 'en' ? en : es);
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const COLOR_LENG = { HTML: '#e34c26', Java: '#b07219', Kotlin: '#a97bff', PHP: '#7a86c8', Python: '#3f8fd0', JavaScript: '#f1e05a', TypeScript: '#3178c6', CSS: '#8a6fd1', 'Jupyter Notebook': '#da5b0b' };
+let gitPromesa = null, gitRepos = null;
+const leerGithub = () => (gitPromesa = gitPromesa || fetch('/api/github').then((r) => r.json()).then((d) => { if (!d.repos || !d.repos.length) throw new Error('vacío'); return d.repos; }));
+function hace(fecha) {
+  const dias = Math.floor((Date.now() - new Date(fecha)) / 864e5);
+  if (dias < 1) return L('hoy', 'today');
+  const f = new Intl.RelativeTimeFormat(idioma, { numeric: 'auto' });
+  return dias < 30 ? f.format(-dias, 'day') : dias < 365 ? f.format(-Math.round(dias / 30), 'month') : f.format(-Math.round(dias / 365), 'year');
+}
+function pintarGithub() {
+  if (!gitRepos) return;
+  document.getElementById('gitLista').innerHTML = gitRepos.slice(0, 6).map((r) => `<a class="repo" href="${esc(r.url)}" target="_blank" rel="noopener" style="--c:${COLOR_LENG[r.lenguaje] || '#4a4a5c'}">
+    <b>${esc(r.nombre)}</b><span><i>${esc(r.lenguaje || L('varios', 'mixed'))}</i>push · ${hace(r.actualizado)}</span></a>`).join('');
+}
+async function githubEnDirecto() {
+  try { gitRepos = await leerGithub(); pintarGithub(); }
+  catch (e) { gitPromesa = null; document.getElementById('git').hidden = true; }
+  if (hayGsap) ScrollTrigger.refresh();
+}
+
+/* ========== CONSOLA INTERACTIVA ========== */
+const cSalida = document.getElementById('consolaSalida'), cInput = document.getElementById('consolaInput'), cAtajos = document.getElementById('consolaAtajos');
+const cCola = [], cHist = [];
+let cBomba = 0, cPos = 0, cSaludada = false;
+function bombear() {
+  const x = cCola.shift();
+  if (!x) { cBomba = 0; return; }
+  const d = document.createElement('div'); if (x[1]) d.className = x[1]; d.innerHTML = x[0] || '&nbsp;';
+  cSalida.appendChild(d); cSalida.scrollTop = cSalida.scrollHeight;
+  cBomba = setTimeout(bombear, reducir ? 0 : 24);
+}
+function imprimir(lineas, clase = '') { [].concat(lineas).forEach((h) => cCola.push([h, clase])); if (!cBomba) bombear(); }
+const enlace = (url, txt) => `<a href="${url}" target="_blank" rel="noopener">${txt || url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')}</a>`;
+const SECCIONES = { inicio: '#inicio', home: '#inicio', negocios: '#ecosistema', ecosistema: '#ecosistema', businesses: '#ecosistema', tienda: '#directo', store: '#directo', ia: '#pipeline', ai: '#pipeline', pipeline: '#pipeline',
+  habilidades: '#habilidades', skills: '#habilidades', proyectos: '#proyectos', projects: '#proyectos', trayectoria: '#trayectoria', journey: '#trayectoria', contacto: '#contacto', contact: '#contacto' };
+const ALIAS = { help: 'ayuda', '?': 'ayuda', whoami: 'quiensoy', about: 'quiensoy', businesses: 'negocios', projects: 'proyectos', skills: 'stack', store: 'tienda', shop: 'tienda', gh: 'github', git: 'github',
+  contact: 'contacto', mail: 'email', go: 'ir', cd: 'ir', particles: 'particulas', 'partículas': 'particulas', morph: 'particulas', showreel: 'reel', lang: 'idioma', language: 'idioma', clear: 'limpiar', cls: 'limpiar',
+  date: 'fecha', hello: 'hola', hi: 'hola', quit: 'exit', salir: 'exit' };
+const ORDENES = {
+  ayuda: () => [
+    L('Comandos disponibles:', 'Available commands:'),
+    `  <span class="ok">${L('quiensoy', 'whoami')}</span>      ${L('quién soy, en tres líneas', 'who I am, in three lines')}`,
+    `  <span class="ok">${L('negocios', 'businesses')}</span>   ${L('mis tres negocios en marcha', 'my three running businesses')}`,
+    `  <span class="ok">${L('proyectos', 'projects')}</span>    ${L('lo que he construido', "what I've built")}`,
+    `  <span class="ok">stack</span>       ${L('tecnologías que uso', 'the tech I use')}`,
+    `  <span class="ok">${L('tienda', 'store')}</span>       ${L('productos de mi tienda, en directo', 'products from my store, live')}`,
+    `  <span class="ok">github</span>      ${L('mis últimos push, en directo', 'my latest pushes, live')}`,
+    `  <span class="ok">${L('ir', 'go')} &lt;${L('sección', 'section')}&gt;</span>  ${L('navega: ir proyectos, ir ia, ir contacto…', 'navigate: go projects, go ai, go contact…')}`,
+    `  <span class="ok">${L('particulas', 'particles')}</span>   ${L('cambia la forma del fondo 3D', 'morph the 3D background')}`,
+    `  <span class="ok">reel</span>        ${L('abre el showreel de 30 s', 'open the 30 s showreel')}`,
+    `  <span class="ok">${L('contacto', 'contact')}</span>     ${L('cómo hablar conmigo', 'how to reach me')}`,
+    `  <span class="ok">${L('idioma', 'lang')}</span> · <span class="ok">${L('limpiar', 'clear')}</span>`,
+    `<span class="d">${L('Tab autocompleta · ↑↓ recorre el historial', 'Tab autocompletes · ↑↓ walks the history')}</span>`,
+  ],
+  quiensoy: () => [
+    `<span class="h">Aday Fernández</span> — ${L('desarrollador full stack · Cantabria, España', 'full stack developer · Cantabria, Spain')}`,
+    L('Construyo apps nativas, tiendas online, pipelines de IA y automatizaciones.', 'I build native apps, online stores, AI pipelines and automations.'),
+    L('Tres negocios propios en marcha. Del código al negocio, sin intermediarios.', 'Three businesses of my own up and running. From code to business, no middlemen.'),
+  ],
+  negocios: () => [
+    `<span class="h">A</span> Contorno Beauty   ${L('tienda de belleza en Shopify', 'beauty store on Shopify')} → ${enlace('https://contornobeauty.com')}`,
+    `<span class="h">B</span> Tu Socio Digital  ${L('agencia de digitalización para negocios locales', 'digitalization agency for local businesses')} → ${enlace('https://tusociodigitalcantabria.com/')}`,
+    `<span class="h">C</span> ${L('Red de canales', 'Channel network')}    ${L('4 canales de YouTube producidos con agentes de IA', '4 YouTube channels produced with AI agents')} → ${enlace('https://www.youtube.com/@expedientenull', '@expedientenull')}`,
+  ],
+  proyectos: () => [
+    `001 Dashboard RTM                 <span class="d">Kotlin · Compose · MySQL</span>`,
+    `002 ${L('Visión artificial con YOLO  ', 'Computer vision with YOLO  ')}  <span class="d">Python · OpenCV · FastAPI</span>`,
+    `003 ${L('Anuncios 3D por código      ', '3D ads made with code       ')}  <span class="d">Remotion · Three.js</span>`,
+    `004 ${L('App para restaurantes       ', 'Restaurant app              ')}  <span class="d">Astro · React</span>`,
+    `005 ${L('Juego móvil en Kotlin       ', 'Mobile game in Kotlin       ')}  <span class="d">Compose · MVVM</span>`,
+    `006 ${L('APIs REST                   ', 'REST APIs                   ')}  <span class="d">FastAPI · Flask · Retrofit</span>`,
+    `<span class="d">${L('…y más. Escribe', '…and more. Type')}</span> <span class="ok">${L('ir proyectos', 'go projects')}</span> <span class="d">${L('para verlos.', 'to see them.')}</span>`,
+  ],
+  stack: () => [
+    `<span class="h">${L('código ', 'code   ')}</span> Kotlin · Python · JavaScript · Java · HTML/CSS · Docker · Git`,
+    `<span class="h">${L('ia     ', 'ai     ')}</span> Claude Code (${L('agentes y skills', 'agents and skills')}) · Gemini · YOLO · OpenCV · MCP`,
+    `<span class="h">${L('vídeo  ', 'video  ')}</span> Remotion · HyperFrames · Three.js · GSAP · ffmpeg`,
+    `<span class="h">${L('negocio', 'biz    ')}</span> Shopify · Liquid · SEO · Metricool`,
+    `<span class="d">${L('Esta web: Flask + Three.js + GSAP, sin frameworks.', 'This site: Flask + Three.js + GSAP, no frameworks.')}</span>`,
+  ],
+  contacto: () => [
+    `email     <a href="mailto:adayfernandez6@gmail.com">adayfernandez6@gmail.com</a>  <span class="d">(${L('escribe', 'type')} email ${L('para copiarlo', 'to copy it')})</span>`,
+    `linkedin  ${enlace('https://www.linkedin.com/in/aday-fernandez-velar-85aa1626b/', 'Aday Fernández Velar')}`,
+    `github    ${enlace('https://github.com/lumisardy', '@lumisardy')}`,
+    `<span class="ok">${L('Abierto a nuevos retos, en remoto o en Cantabria.', 'Open to new challenges, remote or in Cantabria.')}</span>`,
+  ],
+  email: () => { navigator.clipboard.writeText('adayfernandez6@gmail.com').then(() => avisar(tr('Email copiado'))).catch(() => {}); return [`<span class="ok">✓</span> adayfernandez6@gmail.com ${L('copiado al portapapeles', 'copied to the clipboard')}`]; },
+  tienda: async () => {
+    imprimir(`<span class="d">GET /api/tienda …</span>`);
+    const d = await (await fetch('/api/tienda')).json();
+    if (!d.productos || !d.productos.length) return [`<span class="w">${L('La tienda no responde ahora mismo.', 'The store is not answering right now.')}</span> ${enlace('https://contornobeauty.com')}`];
+    return [`<span class="ok">200</span> · ${d.total} ${L('productos en contornobeauty.com ahora mismo', 'products on contornobeauty.com right now')}`,
+      ...d.productos.slice(0, 5).map((p) => `  ${(+p.precio).toFixed(2).replace('.', L(',', '.')).padStart(6)} €  ${enlace(p.url, esc(p.titulo.slice(0, 44)))}`),
+      `<span class="d">${L('…y', '…and')} ${Math.max(0, d.total - 5)} ${L('más', 'more')}.</span>`];
+  },
+  github: async () => {
+    imprimir(`<span class="d">GET /api/github …</span>`);
+    const repos = await leerGithub();
+    return [`<span class="ok">200</span> · ${L('últimos push de', 'latest pushes by')} ${enlace('https://github.com/lumisardy', '@lumisardy')}`,
+      ...repos.slice(0, 6).map((r) => `  ${enlace(r.url, esc(r.nombre.padEnd(22)))} <span class="d">${esc((r.lenguaje || '—').padEnd(10))} ${hace(r.actualizado)}</span>`)];
+  },
+  ir: (arg) => {
+    const destino = SECCIONES[(arg || '').toLowerCase()];
+    if (!destino) return [`${L('¿A dónde? Prueba', 'Where to? Try')}: <span class="ok">${L('ir', 'go')} ${L('negocios | tienda | ia | habilidades | proyectos | trayectoria | contacto', 'businesses | store | ai | skills | projects | journey | contact')}</span>`];
+    setTimeout(() => irA(destino), 350);
+    return [`<span class="ok">→</span> ${L('viajando a', 'travelling to')} ${destino}`];
+  },
+  particulas: () => {
+    if (!puntos) return [L('Este navegador no tiene WebGL: sin partículas.', 'This browser has no WebGL: no particles.')];
+    const nombres = [L('esfera', 'sphere'), 'ADAY', L('galaxia', 'galaxy'), L('hélice', 'helix'), L('onda', 'wave'), L('nube', 'cloud')];
+    const i = (formaActual + 1) % formas.length; cambiarForma(i);
+    return [`<span class="ok">✦</span> ${N.toLocaleString(idioma)} ${L('partículas →', 'particles →')} <span class="h">${nombres[i]}</span>  <span class="d">(${L('mueve el ratón o haz clic sobre ellas', 'move the mouse or click on them')})</span>`];
+  },
+  reel: () => { setTimeout(abrirReel, 300); return [`<span class="ok">▶</span> showreel.mp4`]; },
+  idioma: () => { setTimeout(() => aplicarIdioma(idioma === 'es' ? 'en' : 'es'), 60); return [idioma === 'es' ? '<span class="ok">✓</span> Switched to English' : '<span class="ok">✓</span> Cambiado a español']; },
+  limpiar: () => { cCola.length = 0; cSalida.innerHTML = ''; return []; },
+  fecha: () => [new Intl.DateTimeFormat(idioma, { dateStyle: 'full', timeStyle: 'short', timeZone: 'Europe/Madrid' }).format(new Date()) + ' · Cantabria'],
+  hola: () => [L('¡Hola! Encantado. Escribe <span class="ok">ayuda</span> y te enseño lo que hago.', 'Hi there! Type <span class="ok">help</span> and I\'ll show you what I do.')],
+  ls: () => [`<span class="h">${L('negocios', 'businesses')}/</span>  <span class="h">${L('proyectos', 'projects')}/</span>  stack.txt  ${L('contacto', 'contact')}.txt  showreel.mp4`],
+  cat: (arg) => { const k = resolver((arg || '').replace(/\.(txt|mp4)$|\/$/g, '')); return ORDENES[k] && k !== 'cat' ? ORDENES[k]() : [`cat: ${esc(arg || '')}: ${L('no existe ese archivo', 'no such file')}`]; },
+  sudo: () => [`<span class="w">${L('Permiso denegado.', 'Permission denied.')}</span> ${L('Para acceso total hay que contratarme:', 'Full access requires hiring me:')} <span class="ok">${L('contacto', 'contact')}</span>`],
+  exit: () => [L('De aquí no se sale: solo se hace scroll.', "There's no way out: you can only scroll.")],
+};
+const resolver = (c) => { c = c.toLowerCase(); return ORDENES[c] ? c : ALIAS[c] || c; };
+async function ejecutarOrden(texto) {
+  texto = texto.trim(); if (!texto) return;
+  cHist.push(texto); cPos = cHist.length;
+  imprimir(esc(texto), 'cmd');
+  const [c, ...resto] = texto.split(/\s+/), orden = ORDENES[resolver(c)];
+  if (!orden) { imprimir(`<span class="w">${esc(c)}</span>: ${L('comando no encontrado. Escribe', 'command not found. Type')} <span class="ok">${L('ayuda', 'help')}</span>.`); return; }
+  try { imprimir(await orden(resto.join(' '))); }
+  catch (e) { imprimir(`<span class="w">${L('No ha habido respuesta. Inténtalo de nuevo en un momento.', 'No answer. Try again in a moment.')}</span>`); }
+}
+document.getElementById('consolaForm').addEventListener('submit', (e) => { e.preventDefault(); const v = cInput.value; cInput.value = ''; ejecutarOrden(v); });
+cInput.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+    if (!cHist.length) return;
+    e.preventDefault(); cPos = Math.max(0, Math.min(cHist.length, cPos + (e.key === 'ArrowUp' ? -1 : 1))); cInput.value = cHist[cPos] || '';
+  } else if (e.key === 'Tab' && cInput.value.trim()) {
+    const q = cInput.value.trim().toLowerCase(), opcion = [...Object.keys(ORDENES), ...Object.keys(ALIAS)].find((k) => k.startsWith(q));
+    if (opcion) { e.preventDefault(); cInput.value = opcion; }
+  }
+});
+document.getElementById('consolaTerm').addEventListener('click', (e) => { if (!e.target.closest('a') && !String(getSelection())) cInput.focus({ preventScroll: true }); });
+cAtajos.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) ejecutarOrden(b.textContent); });
+// Se llama cada vez que cambia el idioma (y una vez al cargar)
+function consolaIdioma() {
+  cAtajos.innerHTML = (idioma === 'en' ? ['help', 'whoami', 'businesses', 'store', 'github', 'particles', 'contact'] : ['ayuda', 'quiensoy', 'negocios', 'tienda', 'github', 'particulas', 'contacto'])
+    .map((c) => `<button type="button">${c}</button>`).join('');
+  pintarGithub();
+  if (cSaludada) return;
+  cSaludada = true;
+  imprimir([`<span class="d">Portfolio OS · ${new Date().getFullYear()} · ${L('sesión iniciada', 'session started')}</span>`,
+    `${L('Escribe', 'Type')} <span class="ok">${L('ayuda', 'help')}</span> ${L('para ver los comandos, o pulsa uno de los botones.', 'to see the commands, or press one of the buttons.')}`]);
+}
 
 /* ========== IDIOMA (ES / EN) ========== */
 // El español está escrito en la página; el inglés se aplica recorriendo sus textos con este diccionario.
@@ -1649,6 +1932,11 @@ const EN = {
   'Rápido:': 'Fast:', 'de producto nuevo a anuncio publicado en minutos.': 'from new product to published ad in minutes.', 'Algunos anuncios': 'Some of the ads',
   // Textos que crea el script
   'Email copiado': 'Email copied', 'Sin resultados': 'No results',
+  'En directo desde GitHub · últimos push': 'Live from GitHub · latest pushes', 'Leyendo los últimos repositorios…': 'Reading the latest repositories…',
+  'Consola interactiva': 'Interactive console', 'Pregúntale': 'Just ask', 'a la terminal.': 'the terminal.',
+  'Funciona de verdad: escribe un comando o pulsa uno. Lee mi tienda y mi GitHub en directo, mueve las partículas y navega por la página.':
+    'It really works: type a command or press one. It reads my store and my GitHub live, moves the particles and navigates the page.',
+  'Escribe un comando y pulsa Intro…': 'Type a command and press Enter…', 'Abrir la consola interactiva': 'Open the interactive console',
   'Ir al inicio': 'Go to the top', 'Ver mis negocios': 'See my businesses', 'Productos de la tienda en directo': 'Live store products',
   'Cómo funciona el pipeline de IA': 'How the AI pipeline works', 'Copiar mi email': 'Copy my email', 'Abrir contornobeauty.com': 'Open contornobeauty.com',
   'Abrir Tu Socio Digital': 'Open Tu Socio Digital', 'Ver Expediente Null en YouTube': 'Watch Expediente Null on YouTube', 'Mi GitHub': 'My GitHub',
@@ -1693,6 +1981,7 @@ function aplicarIdioma(nuevo) {
   traducir(document.body);
   montarManifiesto(nuevo);
   ajustarNombre();
+  consolaIdioma();
   try { localStorage.setItem('idioma', nuevo); } catch (e) { /* sin almacenamiento: no se recuerda */ }
   if (hayGsap) requestAnimationFrame(() => ScrollTrigger.refresh());
 }
@@ -1715,6 +2004,7 @@ addEventListener('keydown', (e) => { if (e.key === 'Escape' && reel.classList.co
 comandos.splice(1, 0, { t: 'Ver el showreel', s: 'vídeo', f: abrirReel });
 
 tiendaEnDirecto();
+githubEnDirecto();
 cargar();
 </script>
 </body>
